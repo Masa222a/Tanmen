@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_Home"
+        android:icon="@drawable/ic_ramen_dining_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_Shuffle"
+        android:icon="@drawable/ic_baseline_shuffle_24"
+        android:title="Shuffle" />
+</menu>

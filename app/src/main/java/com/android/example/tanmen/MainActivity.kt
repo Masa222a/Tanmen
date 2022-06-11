@@ -2,9 +2,8 @@ package com.android.example.tanmen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.android.example.tanmen.databinding.ActivityMainBinding
+import com.android.example.tanmen.databinding.FragmentMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -15,14 +14,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bottomNavView = binding.bottomNavigation
-        val navController = findNavController(R.id.nav_host_fragment)
-        setupWithNavController(bottomNavView, navController)
+        binding.viewPager.adapter = BottomNavigationPagerAdapter(this)
+        binding.viewPager.isUserInputEnabled = false
 
-        val fab = binding.fab
-        fab.setOnClickListener { view ->
+        binding.bottomNavigation.setOnItemSelectedListener {
+            val currentItem = getCurrentItem(it.itemId)
+            binding.viewPager.setCurrentItem(currentItem, true)
+            return@setOnItemSelectedListener true
+        }
+
+        binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Fabを押しました！", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+    }
+
+    private fun getCurrentItem(itemId: Int): Int {
+        return when (itemId) {
+            R.id.nav_Main -> 0
+            R.id.nav_Shuffle -> 1
+            else -> 0
         }
     }
 }
