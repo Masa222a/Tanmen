@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             val currentItem = getCurrentItem(it.itemId)
             binding.viewPager.setCurrentItem(currentItem, true)
-            return@setOnItemSelectedListener
+            return@setOnItemSelectedListener true
         }
 
         binding.fab.setOnClickListener { view ->
