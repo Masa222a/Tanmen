@@ -36,9 +36,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
-    <include
-        android:id="@+id/bottom_Sheet"
-        layout="@layout/bottom_sheet_contents" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
