@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/nav_Main">
+    <fragment
+        android:id="@+id/nav_Main"
+        android:name="com.android.example.tanmen.MainFragment"
+        android:label="MainFragment" />
+
+    <fragment
+        android:id="@+id/nav_Shuffle"
+        android:name="com.android.example.tanmen.ShuffleFragment"
+        android:label="ShuffleFragment" />
+</navigation>

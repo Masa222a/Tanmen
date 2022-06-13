@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Tanmen</string>
+    <string name="search">検索</string>
+    <string name="serach_button">現在地から検索</string>
+    <string name="distance">距離</string>
+    <string name="cancel">キャンセル</string>
+    <string name="five_hundred_meters">500m</string>
+    <string name="one_thousand_meters">1000m</string>
+    <string name="two_thousand_meters">2000m</string>
+</resources>
