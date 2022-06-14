@@ -10,4 +10,7 @@
     <string name="shop_name">店名が入ります</string>
     <string name="shop_address">住所が入ります</string>
     <string name="business_hours">営業時間が入ります</string>
+    <string name="name_label">店名</string>
+    <string name="address_label">住所</string>
+    <string name="hours_label">営業時間</string>
 </resources>

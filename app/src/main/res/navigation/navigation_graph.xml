@@ -6,10 +6,18 @@
     <fragment
         android:id="@+id/nav_Main"
         android:name="com.android.example.tanmen.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_nav_Main_to_nav_Shuffle"
+            app:destination="@id/nav_Shuffle" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_Shuffle"
         android:name="com.android.example.tanmen.ShuffleFragment"
-        android:label="ShuffleFragment" />
+        android:label="ShuffleFragment" >
+        <action
+            android:id="@+id/action_nav_Shuffle_to_nav_Main"
+            app:destination="@id/nav_Main" />
+    </fragment>
 </navigation>

@@ -20,46 +20,56 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/name_label"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/shop_name"
+        app:layout_constraintStart_toStartOf="@+id/shop_photo"
+        app:layout_constraintTop_toBottomOf="@+id/shop_photo" />
+
+    <TextView
         android:id="@+id/shop_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:text="@string/shop_name"
+        android:text="京都北白川ラーメン魁力屋 イオンモールりんくう泉南店"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/name_label" />
+
+    <TextView
+        android:id="@+id/address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/address_label"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/shop_address"
+        app:layout_constraintStart_toStartOf="@+id/shop_photo"
+        app:layout_constraintTop_toBottomOf="@+id/shop_name" />
 
     <TextView
         android:id="@+id/shop_address"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:text="@string/shop_address"
+        android:text="大阪府泉南市りんくう南浜３−１２ 1F レストラン街内"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_name" />
-
-    <TextView
-        android:id="@+id/shop_business_hours"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="@string/business_hours"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_address" />
+        app:layout_constraintTop_toBottomOf="@+id/address_label" />
 
     <Button
         android:id="@+id/search_button"
@@ -70,6 +80,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_business_hours" />
+        app:layout_constraintTop_toBottomOf="@+id/shop_address" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
