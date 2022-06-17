@@ -2,8 +2,6 @@ package com.android.example.tanmen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.android.example.tanmen.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
