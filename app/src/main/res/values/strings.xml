@@ -7,4 +7,7 @@
     <string name="five_hundred_meters">500m</string>
     <string name="one_thousand_meters">1000m</string>
     <string name="two_thousand_meters">2000m</string>
+    <string name="name_label">店名</string>
+    <string name="address_label">住所</string>
+    <string name="hours_label">営業時間</string>
 </resources>
