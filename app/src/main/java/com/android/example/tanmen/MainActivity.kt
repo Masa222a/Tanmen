@@ -2,11 +2,14 @@ package com.android.example.tanmen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.example.tanmen.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +25,10 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Fabを押しました！", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+//        binding.fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Fabを押しました！", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
     }
 
     private fun getCurrentItem(itemId: Int): Int {
