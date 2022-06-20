@@ -1,16 +1,14 @@
 package com.android.example.tanmen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.tanmen.databinding.FragmentMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -18,18 +16,23 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val fab = activity?.findViewById<FloatingActionButton>(R.id.fab)
-        fab?.setOnClickListener { view ->
-//            Snackbar.make(view, "Fabを押しました！", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-            val bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_Sheet))
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                BottomSheetBehavior.STATE_EXPANDED
-            }
+        fab?.setOnClickListener {
+            initSheetBehavior(binding)
         }
+
         return binding.root
+    }
+
+    private fun initSheetBehavior(binding: FragmentMainBinding) {
+        val behavior = BottomSheetBehavior.from(binding.bottomSheet.bottomSheetContents)
+        if (behavior.state !== BottomSheetBehavior.STATE_COLLAPSED) {
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
