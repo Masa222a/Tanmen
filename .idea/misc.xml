@@ -17,6 +17,9 @@
         <entry key="..\:/Users/PC_User/AndroidStudioProjects/Tanmen/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/PC_User/AndroidStudioProjects/Tanmen/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/PC_User/AndroidStudioProjects/Tanmen/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2351851851851852" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/bottom_sheet_contents.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.17617753623188406" />
       </map>
     </option>
   </component>
