@@ -21,18 +21,11 @@ class MainActivity : AppCompatActivity() {
             binding.viewPager.setCurrentItem(currentItem, true)
             return@setOnItemSelectedListener true
         }
-        binding.fab.doOnLayout {
-            initSheetBehavior(binding)
+
+        binding.fab.setOnClickListener { view ->
+            val dialog = SearchBottomSheetDialogFragment()
+            dialog.show(supportFragmentManager, dialog.tag)
         }
-
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Fabを押しました！", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-    }
-
-    private fun initSheetBehavior(binding: ActivityMainBinding) {
-
     }
 
     private fun getCurrentItem(itemId: Int): Int {

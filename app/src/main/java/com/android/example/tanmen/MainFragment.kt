@@ -18,21 +18,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        val fab = activity?.findViewById<FloatingActionButton>(R.id.fab)
-        fab?.setOnClickListener {
-            initSheetBehavior(binding)
-        }
 
         return binding.root
-    }
-
-    private fun initSheetBehavior(binding: FragmentMainBinding) {
-        val behavior = BottomSheetBehavior.from(binding.bottomSheet.bottomSheetContents)
-        if (behavior.state !== BottomSheetBehavior.STATE_COLLAPSED) {
-            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        } else {
-            BottomSheetBehavior.STATE_COLLAPSED
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
