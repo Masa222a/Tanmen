@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
 
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener {
             val dialog = SearchBottomSheetDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
         }
