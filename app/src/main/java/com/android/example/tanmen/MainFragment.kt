@@ -1,10 +1,12 @@
 package com.android.example.tanmen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.tanmen.databinding.FragmentMainBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,7 +20,12 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-
+        setFragmentResultListener("Key1") { requestKey, bundle ->
+            val img = bundle.getString("img")
+            val name = bundle.getString("name")
+            Log.d("img", "${img}")
+            Log.d("name", "${name}")
+        }
         return binding.root
     }
 
