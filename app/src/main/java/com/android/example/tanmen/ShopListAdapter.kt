@@ -12,7 +12,7 @@ class ShopListAdapter(private val shopList: MutableList<Shop>)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.image)
-        var shopAddress: TextView = itemView.findViewById(R.id.detail_address)
+        var shopAddress: TextView = itemView.findViewById(R.id.detail_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
@@ -24,7 +24,7 @@ class ShopListAdapter(private val shopList: MutableList<Shop>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = shopList[position]
         holder.image.setImageResource(R.drawable.ramen_dining_24px)
-        holder.shopAddress.text = shop.address
+        holder.shopAddress.text = shop.name
     }
 
     override fun getItemCount() : Int = shopList.size

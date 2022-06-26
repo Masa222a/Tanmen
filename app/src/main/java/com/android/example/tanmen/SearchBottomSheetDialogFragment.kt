@@ -78,17 +78,23 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private fun ramenJsonTask(result: String) {
         val jsonObj = JSONObject(result).getJSONObject("results").getJSONArray("shop")
-        val shop = jsonObj.getJSONObject(0)
-        val shopName = shop.getString("name")
-        val shopAddress = shop.getString("address")
-        val shopImage = shop.getString("logo_image")
-        setFragmentResult("Key1", bundleOf(
-            "img" to shopImage,
-            "name" to shopName,
-        ))
-        Log.d("店名", "$shopName")
-        Log.d("住所", "$shopAddress")
-        Log.d("画像", "$shopImage")
+        for (i in 0..4) {
+            val shop = jsonObj.getJSONObject(i)
+            val shopImage = shop.getString("logo_image")
+            val shopName = shop.getString("name")
+            val shopAddress = shop.getString("address")
+            val shopHours = shop.getString("open")
+            setFragmentResult("Key${i}", bundleOf(
+                "img" to shopImage,
+                "name" to shopName,
+                "address" to shopAddress,
+                "hours" to shopHours
+            ))
+            Log.d("画像", "$shopImage")
+            Log.d("店名", "$shopName")
+            Log.d("住所", "$shopAddress")
+            Log.d("営業時間", "$shopHours")
+        }
     }
 
     private fun getCheckedButton(btnId: Int): String {
