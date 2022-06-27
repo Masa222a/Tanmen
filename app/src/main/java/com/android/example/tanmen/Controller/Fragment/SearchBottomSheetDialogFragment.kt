@@ -1,4 +1,4 @@
-package com.android.example.tanmen
+package com.android.example.tanmen.Controller.Fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,10 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
+import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.REQ_KEY
+import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.createArgments
+import com.android.example.tanmen.Model.Shop
+import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
@@ -78,23 +82,16 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private fun ramenJsonTask(result: String) {
         val jsonObj = JSONObject(result).getJSONObject("results").getJSONArray("shop")
-        for (i in 0..4) {
-            val shop = jsonObj.getJSONObject(i)
-            val shopImage = shop.getString("logo_image")
-            val shopName = shop.getString("name")
-            val shopAddress = shop.getString("address")
-            val shopHours = shop.getString("open")
-            setFragmentResult("Key${i}", bundleOf(
-                "img" to shopImage,
-                "name" to shopName,
-                "address" to shopAddress,
-                "hours" to shopHours
-            ))
-            Log.d("画像", "$shopImage")
-            Log.d("店名", "$shopName")
-            Log.d("住所", "$shopAddress")
-            Log.d("営業時間", "$shopHours")
-        }
+        val shop = jsonObj.getJSONObject(0)
+        val shopImage = shop.getString("logo_image")
+        val shopName = shop.getString("name")
+        val shopAddress = shop.getString("address")
+        val shopHours = shop.getString("open")
+
+        setFragmentResult(
+            REQ_KEY,
+            createArgments(Shop(shopImage, shopName, shopAddress, shopHours))
+        )
     }
 
     private fun getCheckedButton(btnId: Int): String {

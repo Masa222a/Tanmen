@@ -5,7 +5,7 @@
     app:startDestination="@id/nav_Main">
     <fragment
         android:id="@+id/nav_Main"
-        android:name="com.android.example.tanmen.MainFragment"
+        android:name="com.android.example.tanmen.Controller.Fragment.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_nav_Main_to_nav_Shuffle"
@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/nav_Shuffle"
-        android:name="com.android.example.tanmen.ShuffleFragment"
+        android:name="com.android.example.tanmen.Controller.Fragment.ShuffleFragment"
         android:label="ShuffleFragment" >
         <action
             android:id="@+id/action_nav_Shuffle_to_nav_Main"

@@ -1,8 +1,10 @@
-package com.android.example.tanmen
+package com.android.example.tanmen.Controller.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnLayout
+import com.android.example.tanmen.Controller.Fragment.SearchBottomSheetDialogFragment
+import com.android.example.tanmen.View.BottomNavigationPagerAdapter
+import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.android.example.tanmen
+package com.android.example.tanmen.View
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.example.tanmen.Model.Shop
+import com.android.example.tanmen.R
 
 class ShopListAdapter(private val shopList: MutableList<Shop>)
     : RecyclerView.Adapter<ShopListAdapter.ViewHolder>() {
