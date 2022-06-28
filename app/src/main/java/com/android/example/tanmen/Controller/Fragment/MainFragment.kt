@@ -21,7 +21,7 @@ class MainFragment : Fragment() {
         const val REQ_KEY: String = "shop"
         private const val ARG_SHOP: String = "shop"
 
-        fun createArgments(shop: Shop): Bundle {
+        fun createArgments(shop: MutableList<Shop>): Bundle {
             return bundleOf(ARG_SHOP to shop)
         }
     }
@@ -32,15 +32,11 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         setFragmentResultListener(REQ_KEY) { _, bundle ->
-            val shop = bundle.getSerializable(ARG_SHOP) as Shop
-
-            val shopList = mutableListOf(
-                Shop(shop.image, shop.name, shop.address, shop.hours)
-            )
+            val shopLists = bundle.getSerializable(ARG_SHOP) as MutableList<Shop>
 
             val recyclerView = binding.shopList
             val layoutManager = LinearLayoutManager(recyclerView.context)
-            adapter = ShopListAdapter(shopList)
+            adapter = ShopListAdapter(shopLists)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter
 
@@ -48,10 +44,4 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
-    }
 }

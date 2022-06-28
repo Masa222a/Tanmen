@@ -25,7 +25,7 @@ class ShopListAdapter(private val shopList: MutableList<Shop>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = shopList[position]
-        holder.image.setImageResource(R.drawable.ramen_dining_24px)
+        shop.image.into(holder.image)
         holder.shopAddress.text = shop.name
     }
 

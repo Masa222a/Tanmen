@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.REQ_KEY
@@ -15,6 +14,7 @@ import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -82,15 +82,22 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private fun ramenJsonTask(result: String) {
         val jsonObj = JSONObject(result).getJSONObject("results").getJSONArray("shop")
-        val shop = jsonObj.getJSONObject(0)
-        val shopImage = shop.getString("logo_image")
-        val shopName = shop.getString("name")
-        val shopAddress = shop.getString("address")
-        val shopHours = shop.getString("open")
+        val shopData: MutableList<Shop> = mutableListOf()
+        for (i in 0 until jsonObj.length()) {
+            val imageUrl = jsonObj.getJSONObject(i).getString("logo_image")
+            val shopImage = Picasso.get().load(imageUrl).resize(72, 72)
+//            val shopImage = jsonObj.getJSONObject(i).getString("logo_image")
+            val shopName = jsonObj.getJSONObject(i).getString("name")
+            val shopAddress = jsonObj.getJSONObject(i).getString("address")
+            val shopHours = jsonObj.getJSONObject(i).getString("open")
+            val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
+            shopData.add(shopResult)
+        }
+        Log.d("shopData", "$shopData")
 
         setFragmentResult(
             REQ_KEY,
-            createArgments(Shop(shopImage, shopName, shopAddress, shopHours))
+            createArgments(shopData)
         )
     }
 
