@@ -93,7 +93,6 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
             val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
             shopData.add(shopResult)
         }
-        Log.d("shopData", "$shopData")
 
         setFragmentResult(
             REQ_KEY,

@@ -11,6 +11,11 @@ import com.android.example.tanmen.R
 
 class ShopListAdapter(private val shopList: MutableList<Shop>)
     : RecyclerView.Adapter<ShopListAdapter.ViewHolder>() {
+    private lateinit var listener: OnShopCellClickListener
+
+    interface OnShopCellClickListener {
+        fun onItemClick(shop: Shop)
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.image)
@@ -27,8 +32,14 @@ class ShopListAdapter(private val shopList: MutableList<Shop>)
         val shop = shopList[position]
         shop.image.into(holder.image)
         holder.shopAddress.text = shop.name
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(shop)
+        }
     }
 
     override fun getItemCount() : Int = shopList.size
 
+    fun setOnShopCellClickListener(listener: OnShopCellClickListener) {
+        this.listener = listener
+    }
 }

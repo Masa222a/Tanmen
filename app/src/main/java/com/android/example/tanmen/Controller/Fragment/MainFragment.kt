@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.tanmen.Model.Shop
+import com.android.example.tanmen.R
 import com.android.example.tanmen.View.ShopListAdapter
 import com.android.example.tanmen.databinding.FragmentMainBinding
 
@@ -41,6 +43,25 @@ class MainFragment : Fragment() {
             recyclerView.adapter = adapter
 
         }
+
+        adapter?.setOnShopCellClickListener(
+            object : ShopListAdapter.OnShopCellClickListener {
+                override fun onItemClick(shop: Shop) {
+                    setFragmentResult("shopDetail", bundleOf(
+                        "shopImage" to shop.image.resize(300, 300),
+                        "shopName" to shop.name,
+                        "shopAddress" to shop.address,
+                        "shopHours" to shop.hours
+                    ))
+
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.viewPager, DetailFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        )
         return binding.root
     }
 
