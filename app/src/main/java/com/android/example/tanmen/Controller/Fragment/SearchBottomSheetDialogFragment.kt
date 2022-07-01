@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
+import com.android.example.tanmen.API.ShopService
 import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.REQ_KEY
 import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.createArgments
 import com.android.example.tanmen.Model.Shop
@@ -39,10 +40,17 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         binding = FragmentSearchBottomSheetDialogBinding.inflate(inflater, container, false)
 
         binding.searchButton.setOnClickListener {
-            val btnId = binding.toggleButton.checkedButtonId
-            val url = getCheckedButton(btnId)
-            Log.d("clickedSearchURL", "${url}")
-            searchTask(url)
+            lifecycleScope.launch {
+                val btnId = binding.toggleButton.checkedButtonId
+                val url = getCheckedButton(btnId)
+                Log.d("clickedSearchURL", "${url}")
+                val shopData = ShopService().searchTask(url)
+
+                setFragmentResult(
+                    REQ_KEY,
+                    createArgments(shopData)
+                )
+            }
         }
 
         binding.cancelButton.setOnClickListener {
@@ -51,54 +59,7 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun searchTask(ramenUrl: String) {
-        lifecycleScope.launch {
-            val result = ramenBackgroundTask(ramenUrl)
-            ramenJsonTask(result)
-        }
-    }
 
-    private suspend fun ramenBackgroundTask(ramenUrl: String): String {
-        val response = withContext(Dispatchers.IO) {
-            var httpResult = ""
-
-            try {
-                val urlObj = URL(ramenUrl)
-                Log.d("ramenUrl", "$ramenUrl")
-                Log.d("urlObj", "$urlObj")
-                val br = BufferedReader(InputStreamReader(urlObj.openStream()))
-                httpResult = br.readText()
-            } catch (e:IOException) {
-                e.printStackTrace()
-                Log.e("エラー⓵","IOException")
-            } catch (e:JSONException) {
-                e.printStackTrace()
-                Log.e("エラー②", "JSONException")
-            }
-            return@withContext httpResult
-        }
-        return response
-    }
-
-    private fun ramenJsonTask(result: String) {
-        val jsonObj = JSONObject(result).getJSONObject("results").getJSONArray("shop")
-        val shopData: MutableList<Shop> = mutableListOf()
-        for (i in 0 until jsonObj.length()) {
-            val imageUrl = jsonObj.getJSONObject(i).getString("logo_image")
-            val shopImage = Picasso.get().load(imageUrl).resize(72, 72)
-//            val shopImage = jsonObj.getJSONObject(i).getString("logo_image")
-            val shopName = jsonObj.getJSONObject(i).getString("name")
-            val shopAddress = jsonObj.getJSONObject(i).getString("address")
-            val shopHours = jsonObj.getJSONObject(i).getString("open")
-            val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
-            shopData.add(shopResult)
-        }
-
-        setFragmentResult(
-            REQ_KEY,
-            createArgments(shopData)
-        )
-    }
 
     private fun getCheckedButton(btnId: Int): String {
         val ramenUrl = when (btnId) {

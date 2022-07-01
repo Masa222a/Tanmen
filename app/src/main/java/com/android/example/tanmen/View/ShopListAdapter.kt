@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 
-class ShopListAdapter(private val shopList: MutableList<Shop>)
+class ShopListAdapter(var shopList: MutableList<Shop>)
     : RecyclerView.Adapter<ShopListAdapter.ViewHolder>() {
     private lateinit var listener: OnShopCellClickListener
 
