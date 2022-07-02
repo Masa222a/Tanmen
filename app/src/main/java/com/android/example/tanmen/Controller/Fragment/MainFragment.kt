@@ -1,5 +1,6 @@
 package com.android.example.tanmen.Controller.Fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -50,12 +51,16 @@ class MainFragment : Fragment() {
         adapter?.setOnShopCellClickListener(
             object : ShopListAdapter.OnShopCellClickListener {
                 override fun onItemClick(shop: Shop) {
-                    setFragmentResult("shopDetail", bundleOf(
-                        "shopImage" to shop.image.resize(300, 300),
-                        "shopName" to shop.name,
-                        "shopAddress" to shop.address,
-                        "shopHours" to shop.hours
-                    ))
+                    val fragment = DetailFragment()
+                    val bundle = Bundle()
+                    bundle.putSerializable("shopDetail", shop)
+                    fragment.arguments = bundle
+//                    setFragmentResult("shopDetail", bundleOf(
+//                        "shopImage" to shop.image.resize(300, 300),
+//                        "shopName" to shop.name,
+//                        "shopAddress" to shop.address,
+//                        "shopHours" to shop.hours
+//                    ))
 
                     parentFragmentManager
                         .beginTransaction()
@@ -68,10 +73,10 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun changeShopList(shopLists: MutableList<Shop>) {
-        val _adapter = binding.shopList.adapter as ShopListAdapter
-        _adapter.shopList = shopLists
-        _adapter.notifyDataSetChanged()
+        adapter?.shopList = shopLists
+        adapter?.notifyDataSetChanged()
     }
 
 }

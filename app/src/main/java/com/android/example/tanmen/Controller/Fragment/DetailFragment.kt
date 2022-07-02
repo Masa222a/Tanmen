@@ -1,6 +1,7 @@
 package com.android.example.tanmen.Controller.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +17,13 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
-        setFragmentResultListener("shopDetail") { _, bundle ->
-            binding.shopPhoto
-            binding.shopName.text = bundle.getString("shopName")
-            binding.shopAddress.text = bundle.getString("shopAddress")
-            binding.shopBusinessHours.text = bundle.getString("shopHours")
-        }
+        val args = arguments?.getSerializable("shopDetail")
+//        setFragmentResultListener("shopDetail") { _, bundle ->
+//            binding.shopPhoto
+//            binding.shopName.text = bundle.getString("shopName")
+//            binding.shopAddress.text = bundle.getString("shopAddress")
+//            binding.shopBusinessHours.text = bundle.getString("shopHours")
+//        }
         return binding.root
     }
 
