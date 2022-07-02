@@ -1,9 +1,11 @@
-package com.android.example.tanmen
+package com.android.example.tanmen.Controller.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.android.example.tanmen.Controller.Fragment.SearchBottomSheetDialogFragment
+import com.android.example.tanmen.View.BottomNavigationPagerAdapter
+import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -22,9 +24,9 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Fabを押しました！", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.fab.setOnClickListener {
+            val dialog = SearchBottomSheetDialogFragment()
+            dialog.show(supportFragmentManager, dialog.tag)
         }
     }
 

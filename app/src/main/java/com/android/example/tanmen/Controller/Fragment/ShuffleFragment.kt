@@ -1,4 +1,4 @@
-package com.android.example.tanmen
+package com.android.example.tanmen.Controller.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
