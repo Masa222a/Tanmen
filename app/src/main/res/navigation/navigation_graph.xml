@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/nav_Main">
+    app:startDestination="@id/mainFragment">
     <fragment
-        android:id="@+id/nav_Main"
+        android:id="@+id/mainFragment"
         android:name="com.android.example.tanmen.Controller.Fragment.MainFragment"
         android:label="MainFragment" >
         <action
-            android:id="@+id/action_nav_Main_to_nav_Shuffle"
-            app:destination="@id/nav_Shuffle" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_Shuffle"
-        android:name="com.android.example.tanmen.Controller.Fragment.ShuffleFragment"
-        android:label="ShuffleFragment" >
+            android:id="@+id/action_nav_Main_to_homeFragment"
+            app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_nav_Shuffle_to_nav_Main"
-            app:destination="@id/nav_Main" />
+            android:id="@+id/action_nav_Main_to_shuffleFragment"
+            app:destination="@id/shuffleFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.android.example.tanmen.Controller.Fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/shuffleFragment"
+        android:name="com.android.example.tanmen.Controller.Fragment.ShuffleFragment"
+        android:label="fragment_shuffle"
+        tools:layout="@layout/fragment_shuffle" />
 </navigation>

@@ -17,7 +17,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
-        val args = arguments?.getSerializable("shopDetail")
+//        val args = arguments?.getSerializable("shopDetail")
 //        setFragmentResultListener("shopDetail") { _, bundle ->
 //            binding.shopPhoto
 //            binding.shopName.text = bundle.getString("shopName")
