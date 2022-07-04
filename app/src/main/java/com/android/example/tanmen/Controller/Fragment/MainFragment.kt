@@ -1,6 +1,7 @@
 package com.android.example.tanmen.Controller.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class MainFragment : Fragment() {
         bottomNavigation?.setOnItemSelectedListener {
             val currentItem = getCurrentItem(it.itemId)
             binding.viewPager.setCurrentItem(currentItem, true)
+            Log.d("currentItem", "$currentItem")
             return@setOnItemSelectedListener true
         }
 

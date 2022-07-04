@@ -2,9 +2,7 @@ package com.android.example.tanmen.Controller.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.android.example.tanmen.Controller.Fragment.MainFragment
 import com.android.example.tanmen.Controller.Fragment.SearchBottomSheetDialogFragment
-import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
