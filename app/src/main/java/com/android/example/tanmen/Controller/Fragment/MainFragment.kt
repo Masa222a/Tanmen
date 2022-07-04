@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.example.tanmen.R
 import com.android.example.tanmen.View.BottomNavigationPagerAdapter
-import com.android.example.tanmen.databinding.ActivityMainBinding
 import com.android.example.tanmen.databinding.FragmentMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -24,8 +22,7 @@ class MainFragment : Fragment() {
         binding.viewPager.adapter = BottomNavigationPagerAdapter(this)
         binding.viewPager.isUserInputEnabled = false
 
-        val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigation?.setOnItemSelectedListener {
+        binding.bottomNavigation.setOnItemSelectedListener {
             val currentItem = getCurrentItem(it.itemId)
             binding.viewPager.setCurrentItem(currentItem, true)
             Log.d("currentItem", "$currentItem")
@@ -37,8 +34,8 @@ class MainFragment : Fragment() {
 
     private fun getCurrentItem(itemId: Int): Int {
         return when (itemId) {
-            R.id.homeFragment -> 0
-            R.id.shuffleFragment -> 1
+            R.id.nav_Home -> 0
+            R.id.nav_Shuffle -> 1
             else -> 0
         }
     }

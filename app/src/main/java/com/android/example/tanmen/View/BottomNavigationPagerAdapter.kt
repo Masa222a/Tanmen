@@ -14,7 +14,8 @@ class BottomNavigationPagerAdapter(fm: MainFragment) : FragmentStateAdapter(fm) 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> HomeFragment()
-            else -> ShuffleFragment()
+            1 -> ShuffleFragment()
+            else -> HomeFragment()
         }
     }
 }
