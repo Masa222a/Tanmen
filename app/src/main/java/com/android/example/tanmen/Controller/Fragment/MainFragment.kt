@@ -9,10 +9,10 @@ import com.android.example.tanmen.R
 import com.android.example.tanmen.View.BottomNavigationPagerAdapter
 import com.android.example.tanmen.databinding.ActivityMainBinding
 import com.android.example.tanmen.databinding.FragmentMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
-    private lateinit var mbinding: ActivityMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +23,8 @@ class MainFragment : Fragment() {
         binding.viewPager.adapter = BottomNavigationPagerAdapter(this)
         binding.viewPager.isUserInputEnabled = false
 
-        mbinding.bottomNavigation.setOnItemSelectedListener {
+        val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation?.setOnItemSelectedListener {
             val currentItem = getCurrentItem(it.itemId)
             binding.viewPager.setCurrentItem(currentItem, true)
             return@setOnItemSelectedListener true

@@ -7,6 +7,7 @@
     tools:context=".Controller.Activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment"
         android:name="com.android.example.tanmen.Controller.Fragment.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
