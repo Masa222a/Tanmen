@@ -45,22 +45,22 @@ class HomeFragment : Fragment() {
             changeShopList(shopLists)
         }
 
-//        adapter?.setOnShopCellClickListener(
-//            object : ShopListAdapter.OnShopCellClickListener {
-//                override fun onItemClick(shop: Shop) {
-//                    val fragment = DetailFragment()
-//                    val bundle = Bundle()
-//                    bundle.putSerializable("shopDetail", shop)
-//                    fragment.arguments = bundle
-//                    Log.d("bundle", "$bundle")
-//                    parentFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.container, DetailFragment())
-//                        .addToBackStack(null)
-//                        .commit()
-//                }
-//            }
-//        )
+        adapter?.setOnShopCellClickListener(
+            object : ShopListAdapter.OnShopCellClickListener {
+                override fun onItemClick(shop: Shop) {
+                    val fragment = DetailFragment()
+                    val bundle = Bundle()
+                    bundle.putSerializable("shopDetail", shop)
+                    fragment.arguments = bundle
+                    Log.d("bundle", "$bundle")
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, DetailFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        )
 
         return binding.root
     }
