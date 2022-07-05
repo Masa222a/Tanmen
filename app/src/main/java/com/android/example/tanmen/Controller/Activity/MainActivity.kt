@@ -12,15 +12,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//
-//        supportFragmentManager.beginTransaction().apply {
-//            add(R.id.fragment, MainFragment())
-//            commit()
-//        }
-
-        binding.fab.setOnClickListener {
-            val dialog = SearchBottomSheetDialogFragment()
-            dialog.show(supportFragmentManager, dialog.tag)
-        }
     }
 }

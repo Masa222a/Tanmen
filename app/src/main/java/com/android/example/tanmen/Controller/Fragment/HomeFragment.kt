@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.tanmen.Model.Shop
+import com.android.example.tanmen.R
 import com.android.example.tanmen.View.ShopListAdapter
 import com.android.example.tanmen.databinding.FragmentHomeBinding
 
@@ -51,15 +52,16 @@ class HomeFragment : Fragment() {
 //                    val bundle = Bundle()
 //                    bundle.putSerializable("shopDetail", shop)
 //                    fragment.arguments = bundle
-//
+//                    Log.d("bundle", "$bundle")
 //                    parentFragmentManager
 //                        .beginTransaction()
-//                        .replace(R.id.viewPager, DetailFragment())
+//                        .replace(R.id.container, DetailFragment())
 //                        .addToBackStack(null)
 //                        .commit()
 //                }
 //            }
 //        )
+
         return binding.root
     }
 
