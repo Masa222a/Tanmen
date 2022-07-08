@@ -2,7 +2,6 @@ package com.android.example.tanmen.Controller.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,10 +51,10 @@ class HomeFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putSerializable("shopDetail", shop)
                     fragment.arguments = bundle
-                    Log.d("bundle", "$bundle")
+
                     parentFragmentManager
                         .beginTransaction()
-                        .replace(R.id.container, DetailFragment())
+                        .replace(R.id.container, fragment)
                         .addToBackStack(null)
                         .commit()
                 }
