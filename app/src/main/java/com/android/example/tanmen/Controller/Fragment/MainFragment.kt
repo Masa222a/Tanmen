@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
+import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.View.BottomNavigationPagerAdapter
 import com.android.example.tanmen.databinding.FragmentMainBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -28,19 +30,8 @@ class MainFragment : Fragment() {
 
         binding.bottomNavigation.setOnItemSelectedListener {
             val currentItem = getCurrentItem(it.itemId)
-            if (currentItem == 1) {
-                binding.viewPager.setCurrentItem(currentItem, true)
-                lifecycleScope.launch {
-                    val data = ShopService().searchTask(ShopService.Distance.fiveHundred)
-                    val index = Random.nextInt(data.size)
-                    val randomData = data[index]
-                    Bundle().putSerializable("randomData", randomData)
-                }
-                return@setOnItemSelectedListener true
-            } else {
-                binding.viewPager.setCurrentItem(currentItem, true)
-                return@setOnItemSelectedListener true
-            }
+            binding.viewPager.setCurrentItem(currentItem, true)
+            return@setOnItemSelectedListener true
         }
 
         binding.fab.setOnClickListener {
@@ -59,17 +50,4 @@ class MainFragment : Fragment() {
         }
     }
 
-//    private fun getRandomShopData() {
-//        lifecycleScope.launch {
-//            val data = ShopService().searchTask(ShopService.Distance.fiveHundred)
-//            val index = Random.nextInt(data.size)
-//            val randomData = data[index]
-//            Log.d("randomIndex", "${index}")
-//            Log.d("randomData", "${randomData}")
-//            setFragmentResult(
-//                REQ_KEY,
-//                createArgments(randomData)
-//            )
-//        }
-//    }
 }

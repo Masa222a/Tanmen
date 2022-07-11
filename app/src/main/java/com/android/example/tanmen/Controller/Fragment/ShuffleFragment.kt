@@ -1,15 +1,16 @@
 package com.android.example.tanmen.Controller.Fragment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.android.example.tanmen.API.ShopService
 import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.databinding.FragmentShuffleBinding
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class ShuffleFragment : Fragment() {
     private lateinit var binding: FragmentShuffleBinding
@@ -19,9 +20,13 @@ class ShuffleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentShuffleBinding.inflate(inflater, container, false)
-        val args = requireArguments().getSerializable("randomData") as Shop
-        changeContent(args as Shop)
-        Log.d("argsShop", "$args")
+
+        lifecycleScope.launch() {
+            val data = ShopService().searchTask(ShopService.Distance.fiveHundred)
+            val index = Random.nextInt(data.size)
+            val randomData = data[index]
+            changeContent(randomData)
+        }
 
         return binding.root
     }
