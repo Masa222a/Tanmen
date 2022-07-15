@@ -1,6 +1,8 @@
 package com.android.example.tanmen.API
 
+import android.location.Location
 import android.util.Log
+import com.android.example.tanmen.Controller.Activity.MainActivity
 import com.android.example.tanmen.Model.Shop
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -12,11 +14,12 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
 
-class ShopService {
+class ShopService(location: Location) {
     //a3ec860c685e1821
     val apiKey = "a3ec860c685e1821"
     //https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=a3ec860c685e1821&lat=34.67&lng=135.52&range=3
     val mainUrl = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key="
+    var location = MainActivity().currentLocation
 
     suspend fun searchTask(distance: Distance?): MutableList<Shop> {
         val result = ramenBackgroundTask(distance)
