@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.android.example.tanmen.API.ShopService
 import com.android.example.tanmen.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), LocationListener {
@@ -76,7 +75,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
     var currentLocation: Location? = null
     override fun onLocationChanged(location: Location) {
         currentLocation = location
-        ShopService(currentLocation!!)
         Log.d("location", "${location.latitude}, ${location.longitude}")
         Log.d("location", "${currentLocation}")
     }
