@@ -30,6 +30,15 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         val location = activity?.currentLocation
         Log.d("BottomSheetlocation", "${location}")
 
+        //null安全の機能を基本的には使う !!は使わない
+//        var hoge: String? = ""
+//
+//        if (hoge != null) {
+//            hoge
+//        } else {
+//
+//        }
+
         binding.searchButton.setOnClickListener {
             lifecycleScope.launch {
                 val btnId = binding.toggleButton.checkedButtonId
