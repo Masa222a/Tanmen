@@ -26,9 +26,8 @@ class ShopService(val location: Location) {
 
             try {
                 val urlObj = URL(ramenUrl?.let { UrlCreate(it, location).url })
-                Log.d("locationShopService", "${urlObj}")
+                Log.d("locationShopService", "$urlObj")
                 Log.d("ramenUrl", "$ramenUrl")
-                Log.d("urlObj", "$urlObj")
                 val br = BufferedReader(InputStreamReader(urlObj.openStream()))
                 httpResult = br.readText()
             } catch (e: IOException) {
@@ -59,10 +58,18 @@ class ShopService(val location: Location) {
     }
 
     class UrlCreate(private val range: Distance, private val location: Location) {
-        enum class Distance(private val range: Int) {
-            fiveHundred(2),
-            oneThousand(3),
-            twoThousand(4);
+        enum class Distance {
+            fiveHundred,
+            oneThousand,
+            twoThousand;
+        }
+        fun parseDistance(distance: Distance?): Int? {
+            return when (distance) {
+                Distance.fiveHundred -> 2
+                Distance.oneThousand -> 3
+                Distance.twoThousand -> 4
+                else -> null
+            }
         }
         //a3ec860c685e1821
         private val apiKey = "a3ec860c685e1821"
@@ -70,7 +77,8 @@ class ShopService(val location: Location) {
         private val mainUrl = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key="
         val url: String
             get() {
-                return  "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${range}&genre=G013&format=json"
+                Log.d("UrlCreate", "${range}")
+                return  "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
             }
     }
 }
