@@ -13,24 +13,20 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
 
-//a3ec860c685e1821
-val apiKey = "a3ec860c685e1821"
-//https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=a3ec860c685e1821&lat=34.67&lng=135.52&range=3
-val mainUrl = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key="
-
 class ShopService(val location: Location) {
 
-    suspend fun searchTask(distance: Distance?): MutableList<Shop> {
+    suspend fun searchTask(distance: UrlCreate.Distance?): MutableList<Shop> {
         val result = ramenBackgroundTask(distance)
         return ramenJsonTask(result)
     }
 
-    private suspend fun ramenBackgroundTask(ramenUrl: Distance?): String {
+    private suspend fun ramenBackgroundTask(ramenUrl: UrlCreate.Distance?): String {
         val response = withContext(Dispatchers.IO) {
             var httpResult = ""
 
             try {
-                val urlObj = URL(ramenUrl?.url)
+                val urlObj = URL(ramenUrl?.let { UrlCreate(it, location).url })
+                Log.d("locationShopService", "${urlObj}")
                 Log.d("ramenUrl", "$ramenUrl")
                 Log.d("urlObj", "$urlObj")
                 val br = BufferedReader(InputStreamReader(urlObj.openStream()))
@@ -62,9 +58,19 @@ class ShopService(val location: Location) {
         return shopData
     }
 
-    enum class Distance(val url: String) {
-        fiveHundred("${mainUrl}${apiKey}&lat=34.67&lng=135.52&range=2&format=json"),
-        oneThousand("${mainUrl}${apiKey}&lat=34.67&lng=135.52&range=3&format=json"),
-        twoThousand("${mainUrl}${apiKey}&lat=34.67&lng=135.52&range=4&format=json")
+    class UrlCreate(private val range: Distance, private val location: Location) {
+        enum class Distance(private val range: Int) {
+            fiveHundred(2),
+            oneThousand(3),
+            twoThousand(4);
+        }
+        //a3ec860c685e1821
+        private val apiKey = "a3ec860c685e1821"
+        //https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=a3ec860c685e1821&lat=34.67&lng=135.52&range=3
+        private val mainUrl = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key="
+        val url: String
+            get() {
+                return  "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${range}&genre=G013&format=json"
+            }
     }
 }

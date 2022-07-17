@@ -1,6 +1,7 @@
 package com.android.example.tanmen.Controller.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,16 +20,20 @@ class ShuffleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentShuffleBinding.inflate(inflater, container, false)
         val activity = activity as? MainActivity
         val location = activity?.currentLocation
 
-        lifecycleScope.launch() {
-            val data = ShopService(location!!).searchTask(ShopService.Distance.fiveHundred)
-            val index = Random.nextInt(data.size)
-            val randomData = data[index]
-            changeContent(randomData)
+        lifecycleScope.launch {
+            if (location != null) {
+                val data = ShopService(location).searchTask(ShopService.UrlCreate.Distance.fiveHundred)
+                val index = Random.nextInt(data.size)
+                val randomData = data[index]
+                changeContent(randomData)
+            } else {
+                Log.d("ShuffleFragmentLocation", "locationがnullです。")
+            }
         }
 
         return binding.root

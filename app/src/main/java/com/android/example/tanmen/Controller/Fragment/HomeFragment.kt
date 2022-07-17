@@ -17,8 +17,8 @@ import com.android.example.tanmen.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    var adapter: ShopListAdapter? = null
-    var shopList = mutableListOf<Shop>()
+    private var adapter: ShopListAdapter? = null
+    private var shopList = mutableListOf<Shop>()
 
     companion object {
         const val REQ_KEY: String = "shop"
@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val recyclerView = binding.shopList
         val layoutManager = LinearLayoutManager(recyclerView.context)

@@ -23,23 +23,27 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBottomSheetDialogBinding.inflate(inflater, container, false)
 
         val activity = activity as? MainActivity
         val location = activity?.currentLocation
-        Log.d("BottomSheetlocation", "${location}")
+        Log.d("BottomSheetlocation", "$location")
 
         binding.searchButton.setOnClickListener {
             lifecycleScope.launch {
-                val btnId = binding.toggleButton.checkedButtonId
-                val distance = getCheckedButton(btnId)
-                val shopData = ShopService(location!!).searchTask(distance)
+                if (location != null) {
+                    val btnId = binding.toggleButton.checkedButtonId
+                    val distance = getCheckedButton(btnId)
+                    val shopData = ShopService(location).searchTask(distance)
 
-                setFragmentResult(
-                    REQ_KEY,
-                    createArgments(shopData)
-                )
+                    setFragmentResult(
+                        REQ_KEY,
+                        createArgments(shopData)
+                    )
+                } else {
+                    Log.d("SearchBottomSheetDialogFragmentLocation", "locationがnullです。")
+                }
             }
         }
 
@@ -49,23 +53,23 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun getCheckedButton(btnId: Int): ShopService.Distance? {
+    private fun getCheckedButton(btnId: Int): ShopService.UrlCreate.Distance? {
         when (btnId) {
             R.id.button1 -> {
                 //500m
-                return ShopService.Distance.fiveHundred
+                return ShopService.UrlCreate.Distance.fiveHundred
             }
             R.id.button2 -> {
                 //1000m
-                return ShopService.Distance.oneThousand
+                return ShopService.UrlCreate.Distance.oneThousand
 
             }
             R.id.button3 -> {
                 //2000m
-                return ShopService.Distance.twoThousand
+                return ShopService.UrlCreate.Distance.twoThousand
             }
             else -> {
-                Toast.makeText(activity, "選択してください", Toast.LENGTH_SHORT)
+                Toast.makeText(activity, "選択してください", Toast.LENGTH_SHORT).show()
                 Log.d("toggle選択なし", "選択されていません")
             }
         }
