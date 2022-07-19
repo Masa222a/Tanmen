@@ -75,8 +75,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
     var currentLocation: Location? = null
     override fun onLocationChanged(location: Location) {
         currentLocation = location
-        Log.d("location", "${location.latitude}, ${location.longitude}")
-        Log.d("location", "$currentLocation")
+        Log.d("locationchanged", "${location.latitude}, ${location.longitude}")
+        Log.d("locationchanged", "$currentLocation")
     }
 
 }

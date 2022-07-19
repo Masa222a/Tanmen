@@ -22,6 +22,11 @@ class ShuffleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentShuffleBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
         val activity = activity as? MainActivity
         val location = activity?.currentLocation
 
@@ -31,12 +36,11 @@ class ShuffleFragment : Fragment() {
                 val index = Random.nextInt(data.size)
                 val randomData = data[index]
                 changeContent(randomData)
+                Log.d("shuffle", "${location}")
             } else {
                 Log.d("ShuffleFragmentLocation", "locationがnullです。")
             }
         }
-
-        return binding.root
     }
 
     private fun changeContent(shopData: Shop) {
