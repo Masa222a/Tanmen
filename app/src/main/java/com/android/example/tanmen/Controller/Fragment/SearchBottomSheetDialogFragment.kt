@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
-import com.android.example.tanmen.Controller.Activity.MainActivity
 import com.android.example.tanmen.Controller.Fragment.HomeFragment.Companion.REQ_KEY
 import com.android.example.tanmen.Controller.Fragment.HomeFragment.Companion.createArgments
 import com.android.example.tanmen.R
@@ -26,16 +25,12 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
     ): View {
         binding = FragmentSearchBottomSheetDialogBinding.inflate(inflater, container, false)
 
-        val activity = activity as? MainActivity
-        val location = activity?.currentLocation
-        Log.d("BottomSheetlocation", "$location")
-
         binding.searchButton.setOnClickListener {
             lifecycleScope.launch {
-                if (location != null) {
+                if (ShopService.instance.location != null) {
                     val btnId = binding.toggleButton.checkedButtonId
                     val distance = getCheckedButton(btnId)
-                    val shopData = ShopService(location).searchTask(distance)
+                    val shopData = ShopService.instance.searchTask(distance)
 
                     setFragmentResult(
                         REQ_KEY,

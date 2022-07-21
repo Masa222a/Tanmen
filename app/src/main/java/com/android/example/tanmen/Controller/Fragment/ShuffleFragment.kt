@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
-import com.android.example.tanmen.Controller.Activity.MainActivity
 import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.databinding.FragmentShuffleBinding
 import kotlinx.coroutines.launch
@@ -27,16 +26,14 @@ class ShuffleFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val activity = activity as? MainActivity
-        val location = activity?.currentLocation
 
         lifecycleScope.launch {
-            if (location != null) {
-                val data = ShopService(location).searchTask(ShopService.UrlCreate.Distance.fiveHundred)
+            if (ShopService.instance.location != null) {
+                val data = ShopService.instance.searchTask(ShopService.UrlCreate.Distance.fiveHundred)
                 val index = Random.nextInt(data.size)
                 val randomData = data[index]
                 changeContent(randomData)
-                Log.d("shuffle", "${location}")
+                Log.d("shuffle", "${ShopService.instance.location}")
             } else {
                 Log.d("ShuffleFragmentLocation", "locationがnullです。")
             }

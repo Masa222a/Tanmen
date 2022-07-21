@@ -13,7 +13,12 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
 
-class ShopService(val location: Location) {
+class ShopService private constructor(){
+    companion object {
+        var instance: ShopService = ShopService()
+    }
+
+    var location: Location? = null
 
     suspend fun searchTask(distance: UrlCreate.Distance?): MutableList<Shop> {
         val result = ramenBackgroundTask(distance)
@@ -57,7 +62,7 @@ class ShopService(val location: Location) {
         return shopData
     }
 
-    class UrlCreate(private val range: Distance, private val location: Location) {
+    class UrlCreate(private val range: Distance, private val location: Location?) {
         enum class Distance {
             fiveHundred,
             oneThousand,
@@ -78,7 +83,11 @@ class ShopService(val location: Location) {
         val url: String
             get() {
                 Log.d("UrlCreate", "${range}")
-                return  "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
+                return if (location != null) {
+                    "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
+                } else ({
+                    Log.d("ShopService", "locationがnullです")
+                }).toString()
             }
     }
 }
