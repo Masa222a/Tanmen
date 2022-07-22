@@ -85,9 +85,9 @@ class ShopService private constructor(){
                 Log.d("UrlCreate", "${range}")
                 return if (location != null) {
                     "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
-                } else ({
-                    Log.d("ShopService", "locationがnullです")
-                }).toString()
+                } else {
+                    ""
+                }
             }
     }
 }
