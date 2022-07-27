@@ -1,5 +1,6 @@
 package com.android.example.tanmen.Controller.Fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,10 +31,18 @@ class ShuffleFragment : Fragment() {
         lifecycleScope.launch {
             if (ShopService.instance.location != null) {
                 val data = ShopService.instance.searchTask(ShopService.UrlCreate.Distance.fiveHundred)
-                val index = Random.nextInt(data.size)
-                val randomData = data[index]
-                changeContent(randomData)
-                Log.d("shuffle", "${ShopService.instance.location}")
+                if (data.isNotEmpty()) {
+                    val index = Random.nextInt(data.size)
+                    val randomData = data[index]
+                    changeContent(randomData)
+                    Log.d("ShuffleFragment", "${ShopService.instance.location}")
+                } else {
+                    AlertDialog.Builder(requireActivity())
+                        .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
+                        .setPositiveButton("はい", null)
+                        .show()
+                    Log.d("ShuffleFragment", "店のdataが見つかりませんでした。")
+                }
             } else {
                 Log.d("ShuffleFragmentLocation", "locationがnullです。")
             }
