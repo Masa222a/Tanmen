@@ -31,6 +31,7 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     val btnId = binding.toggleButton.checkedButtonId
                     val distance = getCheckedButton(btnId)
                     val shopData = ShopService.instance.searchTask(distance)
+                    Log.d("shopData", "${shopData}")
 
                     setFragmentResult(
                         REQ_KEY,
