@@ -9,7 +9,7 @@ import com.android.example.tanmen.R
 import com.android.example.tanmen.View.BottomNavigationPagerAdapter
 import com.android.example.tanmen.databinding.FragmentMainBinding
 
-class MainFragment : Fragment(), ShuffleFragment.CallbackListener {
+class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class MainFragment : Fragment(), ShuffleFragment.CallbackListener {
         }
     }
 
-    override fun openBottomSheet() {
+    fun openBottomSheet() {
         val dialog = SearchBottomSheetDialogFragment()
         dialog.show(childFragmentManager, dialog.tag)
     }

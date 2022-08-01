@@ -18,11 +18,6 @@ import java.lang.ClassCastException
 import kotlin.random.Random
 
 class ShuffleFragment : Fragment() {
-    private lateinit var listener: CallbackListener
-
-    interface CallbackListener {
-        fun openBottomSheet()
-    }
     private lateinit var binding: FragmentShuffleBinding
 
     override fun onCreateView(
@@ -49,11 +44,8 @@ class ShuffleFragment : Fragment() {
                         .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
                         .setPositiveButton("はい", object : DialogInterface.OnClickListener {
                             override fun onClick(dialog: DialogInterface?, which: Int) {
-                                val mainFragment = this@ShuffleFragment.parentFragment
-                                if (mainFragment != null) {
-                                    listener.openBottomSheet()
-                                }
-
+                                val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
+                                mainFragment.openBottomSheet()
                             }
                         })
                         .show()
@@ -62,16 +54,6 @@ class ShuffleFragment : Fragment() {
             } else {
                 Log.d("ShuffleFragmentLocation", "locationがnullです。")
             }
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        try {
-            val mainFragment: MainFragment = parentFragment as MainFragment
-            listener = mainFragment
-        } catch (e: ClassCastException) {
-            throw ClassCastException((context.toString() + "must implement NoticeDialogListener"))
         }
     }
 
