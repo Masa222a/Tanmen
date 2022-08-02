@@ -29,14 +29,19 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
             lifecycleScope.launch {
                 if (ShopService.instance.location != null) {
                     val btnId = binding.toggleButton.checkedButtonId
-                    val distance = getCheckedButton(btnId)
-                    val shopData = ShopService.instance.searchTask(distance)
-                    Log.d("shopData", "${shopData}")
+                    if (btnId != -1) {
+                        val distance = getCheckedButton(btnId)
+                        val shopData = ShopService.instance.searchTask(distance)
+                        Log.d("shopData", "${shopData}")
 
-                    setFragmentResult(
-                        REQ_KEY,
-                        createArgments(shopData)
-                    )
+                        setFragmentResult(
+                            REQ_KEY,
+                            createArgments(shopData)
+                        )
+                    }else {
+                        Toast.makeText(activity, "距離を選択してください", Toast.LENGTH_SHORT).show()
+                        Log.d("toggle選択なし", "選択されていません")
+                    }
                 } else {
                     Log.d("SearchBottomSheetDialogFragmentLocation", "locationがnullです。")
                 }
@@ -63,10 +68,6 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
             R.id.button3 -> {
                 //2000m
                 return ShopService.UrlCreate.Distance.twoThousand
-            }
-            else -> {
-                Toast.makeText(activity, "選択してください", Toast.LENGTH_SHORT).show()
-                Log.d("toggle選択なし", "選択されていません")
             }
         }
         return null
