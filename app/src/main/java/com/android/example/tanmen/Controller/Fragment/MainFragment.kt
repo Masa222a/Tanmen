@@ -29,8 +29,6 @@ class MainFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             openBottomSheet()
-//            val dialog = SearchBottomSheetDialogFragment()
-//            dialog.show(childFragmentManager, dialog.tag)
         }
 
         return binding.root

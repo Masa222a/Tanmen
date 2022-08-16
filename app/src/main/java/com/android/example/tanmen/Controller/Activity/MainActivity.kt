@@ -78,4 +78,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
         Log.d("locationchanged", "${location.latitude}, ${location.longitude}")
     }
 
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+
+    }
+
 }
