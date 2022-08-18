@@ -30,6 +30,8 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="店名"
+            android:visibility="gone"
             android:layout_marginStart="50dp"/>
 
         <TextView
@@ -48,6 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingBottom="8dp"
+            android:text="住所"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
