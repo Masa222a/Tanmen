@@ -17,6 +17,7 @@ import com.android.example.tanmen.API.ShopService
 import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentShuffleBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import java.lang.ClassCastException
 import kotlin.random.Random
@@ -45,14 +46,16 @@ class ShuffleFragment : Fragment() {
             if (ShopService.instance.location != null) {
                 val data = ShopService.instance.searchTask(ShopService.UrlCreate.Distance.fiveHundred)
                 if (data.isNotEmpty()) {
-                    binding.nameLabel.text = "店名"
-                    binding.addressLabel.text = "住所"
+                    binding.nameLabel.visibility = View.VISIBLE
+                    binding.addressLabel.visibility = View.VISIBLE
                     progressDialog.dismiss()
                     val index = Random.nextInt(data.size)
                     val randomData = data[index]
                     changeContent(randomData)
                     Log.d("ShuffleFragment", "${ShopService.instance.location}")
                 } else {
+                    binding.nameLabel.visibility = View.GONE
+                    binding.addressLabel.visibility = View.GONE
                     progressDialog.dismiss()
                     AlertDialog.Builder(requireActivity())
                         .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
@@ -61,6 +64,7 @@ class ShuffleFragment : Fragment() {
                                 val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
                                 mainFragment.openBottomSheet()
                                 val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager) as ViewPager2
+                                val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
                                 viewPager.currentItem -= 1
                             }
                         })
