@@ -11,8 +11,10 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.AppLaunchChecker
 import androidx.core.content.ContextCompat
 import com.android.example.tanmen.API.ShopService
 import com.android.example.tanmen.databinding.ActivityMainBinding
@@ -34,6 +36,15 @@ class MainActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var boot = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
+        if (!boot) {
+            AlertDialog.Builder(this)
+                .setMessage("右下の検索ボタンから検索してください。")
+                .setPositiveButton("Ok", null)
+                .show()
+
+            AppLaunchChecker.onActivityCreate(this)
+        }
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
