@@ -62,6 +62,9 @@ class ShuffleFragment : Fragment() {
                                 mainFragment.openBottomSheet()
                                 val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager) as ViewPager2
                                 viewPager.currentItem -= 1
+                                if (bottomNav != null) {
+                                    bottomNav.selectedItemId = R.id.nav_Home
+                                }
                             }
                         })
                         .show()
