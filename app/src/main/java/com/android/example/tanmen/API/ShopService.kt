@@ -6,11 +6,15 @@ import com.android.example.tanmen.Model.Shop
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
+import java.lang.Exception
 import java.net.URL
 
 class ShopService private constructor(){
@@ -31,9 +35,8 @@ class ShopService private constructor(){
 
             try {
                 val urlObj = URL(ramenUrl?.let { UrlCreate(it, location).url })
-                Log.d("locationShopService", "$urlObj")
-                Log.d("ramenUrl", "$ramenUrl")
-                val br = BufferedReader(InputStreamReader(urlObj.openStream()))
+                getRequestUrl(urlObj)
+                val br = BufferedReader(InputStreamReader(getRequestUrl(urlObj)))
                 httpResult = br.readText()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -60,6 +63,19 @@ class ShopService private constructor(){
             shopData.add(shopResult)
         }
         return shopData
+    }
+    
+    private fun getRequestUrl(url: URL): InputStream {
+        val client = OkHttpClient()
+        try {
+            val request = Request.Builder()
+                .url(url)
+                .build()
+            val response = client.newCall(request).execute()
+            return response.body!!.byteStream()
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     class UrlCreate(private val range: Distance, private val location: Location?) {
