@@ -1,12 +1,14 @@
 package com.android.example.tanmen.Controller.Fragment
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +44,16 @@ class HomeFragment : Fragment() {
 
         setFragmentResultListener(REQ_KEY) { _, bundle ->
             val shopLists = bundle.getSerializable(ARG_SHOP) as MutableList<Shop>
-            changeShopList(shopLists)
+            if (shopLists.isEmpty()) {
+                emptyTaskListDialog()
+                changeShopList(shopLists)
+                binding.homeImage.isVisible = true
+                binding.homeMessage.isVisible = true
+            } else {
+                changeShopList(shopLists)
+                binding.homeImage.isVisible = false
+                binding.homeMessage.isVisible = false
+            }
         }
 
         adapter?.setOnShopCellClickListener(
@@ -69,5 +80,13 @@ class HomeFragment : Fragment() {
     private fun changeShopList(shopLists: MutableList<Shop>) {
         adapter?.shopList = shopLists
         adapter?.notifyDataSetChanged()
+    }
+
+    private fun emptyTaskListDialog() {
+        AlertDialog.Builder(requireActivity())
+            .setMessage("該当する店舗が見つかりませんでした。\n" +
+                    "検索条件を変更してください。")
+            .setPositiveButton("はい") { _, _ -> }
+            .show()
     }
 }
