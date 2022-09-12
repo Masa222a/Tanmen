@@ -18,37 +18,12 @@ class ShopService private constructor(){
 
     var location: Location? = null
 
-//    suspend fun searchTask(distance: UrlCreate.Distance?): MutableList<Shop> {
-//        val result = ramenBackgroundTask(distance)
-//        return ramenJsonTask(result)
-//    }
-//
-//    private suspend fun ramenBackgroundTask(ramenUrl: UrlCreate.Distance?): String {
-//        val response = withContext(Dispatchers.IO) {
-//            var httpResult = ""
-//
-//            try {
-//                val urlObj = URL(ramenUrl?.let { UrlCreate(it, location).url })
-//                getRequestUrl(urlObj)
-//                val br = BufferedReader(InputStreamReader(getRequestUrl(urlObj)))
-//                httpResult = br.readText()
-//            } catch (e: IOException) {
-//                e.printStackTrace()
-//                Log.e("エラー⓵","IOException")
-//            } catch (e: JSONException) {
-//                e.printStackTrace()
-//                Log.e("エラー②", "JSONException")
-//            }
-//            return@withContext httpResult
-//        }
-//        return response
-//    }
-    fun fetchUrl(ramenUrl: UrlCreate.Distance?, request: HTTPResponse) {
+    fun fetchUrl(ramenUrl: UrlCreate.Distance?, callback: (MutableList<Shop>) -> Unit) {
         val url = URL(ramenUrl?.let { UrlCreate(it, location).url })
         search(url) {
-            when(request) {
+            when(it) {
                 is HTTPResponse.JsonSuccess -> {
-                    val dataList = request.json.getJSONObject("results").getJSONArray("shop")
+                    val dataList = it.json.getJSONObject("results").getJSONArray("shop")
                     val shopData: MutableList<Shop> = mutableListOf()
                     for (i in 0 until dataList.length()) {
                         val imageUrl = dataList.getJSONObject(i).getString("logo_image")
@@ -59,6 +34,7 @@ class ShopService private constructor(){
                         val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
                         shopData.add(shopResult)
                     }
+                    callback(shopData)
                 }
                 is HTTPResponse.Failure -> {
 
@@ -96,21 +72,6 @@ class ShopService private constructor(){
                 }
             }
         })
-    }
-
-    private fun ramenJsonTask(result: String): MutableList<Shop> {
-        val jsonObj = JSONObject(result).getJSONObject("results").getJSONArray("shop")
-        val shopData: MutableList<Shop> = mutableListOf()
-        for (i in 0 until jsonObj.length()) {
-            val imageUrl = jsonObj.getJSONObject(i).getString("logo_image")
-            val shopImage = Picasso.get().load(imageUrl).resize(72, 72)
-            val shopName = jsonObj.getJSONObject(i).getString("name")
-            val shopAddress = jsonObj.getJSONObject(i).getString("address")
-            val shopHours = jsonObj.getJSONObject(i).getString("open")
-            val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
-            shopData.add(shopResult)
-        }
-        return shopData
     }
 
     class UrlCreate(private val range: Distance, private val location: Location?) {
