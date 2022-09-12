@@ -4,18 +4,12 @@ import android.location.Location
 import android.util.Log
 import com.android.example.tanmen.Model.Shop
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONException
+import okhttp3.*
 import org.json.JSONObject
-import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.lang.Exception
 import java.net.URL
+import java.util.concurrent.TimeUnit
 
 class ShopService private constructor(){
     companion object {
@@ -24,30 +18,84 @@ class ShopService private constructor(){
 
     var location: Location? = null
 
-    suspend fun searchTask(distance: UrlCreate.Distance?): MutableList<Shop> {
-        val result = ramenBackgroundTask(distance)
-        return ramenJsonTask(result)
+//    suspend fun searchTask(distance: UrlCreate.Distance?): MutableList<Shop> {
+//        val result = ramenBackgroundTask(distance)
+//        return ramenJsonTask(result)
+//    }
+//
+//    private suspend fun ramenBackgroundTask(ramenUrl: UrlCreate.Distance?): String {
+//        val response = withContext(Dispatchers.IO) {
+//            var httpResult = ""
+//
+//            try {
+//                val urlObj = URL(ramenUrl?.let { UrlCreate(it, location).url })
+//                getRequestUrl(urlObj)
+//                val br = BufferedReader(InputStreamReader(getRequestUrl(urlObj)))
+//                httpResult = br.readText()
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//                Log.e("エラー⓵","IOException")
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//                Log.e("エラー②", "JSONException")
+//            }
+//            return@withContext httpResult
+//        }
+//        return response
+//    }
+    fun fetchUrl(ramenUrl: UrlCreate.Distance?, request: HTTPResponse) {
+        val url = URL(ramenUrl?.let { UrlCreate(it, location).url })
+        search(url) {
+            when(request) {
+                is HTTPResponse.JsonSuccess -> {
+                    val dataList = request.json.getJSONObject("results").getJSONArray("shop")
+                    val shopData: MutableList<Shop> = mutableListOf()
+                    for (i in 0 until dataList.length()) {
+                        val imageUrl = dataList.getJSONObject(i).getString("logo_image")
+                        val shopImage = Picasso.get().load(imageUrl).resize(72, 72)
+                        val shopName = dataList.getJSONObject(i).getString("name")
+                        val shopAddress = dataList.getJSONObject(i).getString("address")
+                        val shopHours = dataList.getJSONObject(i).getString("open")
+                        val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
+                        shopData.add(shopResult)
+                    }
+                }
+                is HTTPResponse.Failure -> {
+
+                }
+            }
+        }
     }
 
-    private suspend fun ramenBackgroundTask(ramenUrl: UrlCreate.Distance?): String {
-        val response = withContext(Dispatchers.IO) {
-            var httpResult = ""
+    sealed class HTTPResponse {
+        data class JsonSuccess(val json: JSONObject) : HTTPResponse()
+        data class Failure(val errorMessage: String) : HTTPResponse()
+    }
 
-            try {
-                val urlObj = URL(ramenUrl?.let { UrlCreate(it, location).url })
-                getRequestUrl(urlObj)
-                val br = BufferedReader(InputStreamReader(getRequestUrl(urlObj)))
-                httpResult = br.readText()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                Log.e("エラー⓵","IOException")
-            } catch (e: JSONException) {
-                e.printStackTrace()
-                Log.e("エラー②", "JSONException")
+    fun search(url: URL, handler: (HTTPResponse) -> Unit) {
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        val client: OkHttpClient = OkHttpClient.Builder()
+            .readTimeout(1, TimeUnit.MINUTES)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                handler(HTTPResponse.Failure(e.localizedMessage))
             }
-            return@withContext httpResult
-        }
-        return response
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody: String? = response.body?.string()
+                try {
+                    val json = JSONObject(responseBody)
+                    handler(HTTPResponse.JsonSuccess(json))
+                } catch (e: Exception) {
+                    handler(HTTPResponse.Failure(e.localizedMessage))
+                }
+            }
+        })
     }
 
     private fun ramenJsonTask(result: String): MutableList<Shop> {
@@ -63,19 +111,6 @@ class ShopService private constructor(){
             shopData.add(shopResult)
         }
         return shopData
-    }
-    
-    private fun getRequestUrl(url: URL): InputStream {
-        val client = OkHttpClient()
-        try {
-            val request = Request.Builder()
-                .url(url)
-                .build()
-            val response = client.newCall(request).execute()
-            return response.body!!.byteStream()
-        } catch (e: Exception) {
-            throw e
-        }
     }
 
     class UrlCreate(private val range: Distance, private val location: Location?) {
