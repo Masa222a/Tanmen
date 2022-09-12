@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
 import com.android.example.tanmen.Controller.Fragment.HomeFragment.Companion.REQ_KEY
 import com.android.example.tanmen.Controller.Fragment.HomeFragment.Companion.createArgments
+import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -31,7 +32,10 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     val btnId = binding.toggleButton.checkedButtonId
                     if (btnId != -1) {
                         val distance = getCheckedButton(btnId)
-                        val shopData = ShopService.instance.searchTask(distance)
+                        val result: (ramenUrl: ShopService.UrlCreate.Distance?, List: MutableList<Shop>) -> Unit = {
+                            ShopService.instance.fetchUrl(ramenUrl = distance, request = )
+                        }
+//                        val shopData = ShopService.instance.fetchUrl(distance)
                         Log.d("shopData", "${shopData}")
 
                         setFragmentResult(
