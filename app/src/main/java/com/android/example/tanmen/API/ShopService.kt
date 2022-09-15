@@ -3,7 +3,6 @@ package com.android.example.tanmen.API
 import android.location.Location
 import android.util.Log
 import com.android.example.tanmen.Model.Shop
-import com.squareup.picasso.Picasso
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -27,11 +26,10 @@ class ShopService private constructor(){
                     val shopData: MutableList<Shop> = mutableListOf()
                     for (i in 0 until dataList.length()) {
                         val imageUrl = dataList.getJSONObject(i).getString("logo_image")
-                        val shopImage = Picasso.get().load(imageUrl).resize(72, 72)
                         val shopName = dataList.getJSONObject(i).getString("name")
                         val shopAddress = dataList.getJSONObject(i).getString("address")
                         val shopHours = dataList.getJSONObject(i).getString("open")
-                        val shopResult = Shop(shopImage, shopName, shopAddress, shopHours)
+                        val shopResult = Shop(imageUrl, shopName, shopAddress, shopHours)
                         shopData.add(shopResult)
                     }
                     callback(shopData)
