@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
+import com.squareup.picasso.Picasso
 
 class ShopListAdapter(var shopList: MutableList<Shop>)
     : RecyclerView.Adapter<ShopListAdapter.ViewHolder>() {
@@ -30,7 +31,7 @@ class ShopListAdapter(var shopList: MutableList<Shop>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = shopList[position]
-        shop.image.into(holder.image)
+        Picasso.get().load(shop.image).resize(72, 72).into(holder.image)
         holder.shopAddress.text = shop.name
         holder.itemView.setOnClickListener {
             listener.onItemClick(shop)

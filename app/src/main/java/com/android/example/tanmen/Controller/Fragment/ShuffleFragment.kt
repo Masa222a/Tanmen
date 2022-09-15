@@ -16,6 +16,7 @@ import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentShuffleBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -48,7 +49,7 @@ class ShuffleFragment : Fragment() {
                         binding.nameLabel.visibility = View.VISIBLE
                         binding.addressLabel.visibility = View.VISIBLE
                         progressDialog.dismiss()
-                        val index = Random.nextInt(data.size)
+                        val index = (0..data.size).random()
                         val randomData = data[index]
                         changeContent(randomData)
                         Log.d("ShuffleFragment", "${ShopService.instance.location}")
@@ -79,7 +80,7 @@ class ShuffleFragment : Fragment() {
     }
 
     private fun changeContent(shopData: Shop) {
-        shopData.image.into(binding.shopPhoto)
+        Picasso.get().load(shopData.image).resize(72, 72).into(binding.shopPhoto)
         binding.shopName.text = shopData.name
         binding.shopAddress.text = shopData.address
     }
