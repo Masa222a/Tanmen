@@ -47,12 +47,17 @@ class HomeFragment : Fragment() {
             if (shopLists.isEmpty()) {
                 emptyTaskListDialog()
                 changeShopList(shopLists)
-                binding.homeImage.isVisible = true
-                binding.homeMessage.isVisible = true
+                binding.homeImage.visibility = View.VISIBLE
+                binding.homeMessage.visibility = View.VISIBLE
             } else {
-                changeShopList(shopLists)
-                binding.homeImage.isVisible = false
-                binding.homeMessage.isVisible = false
+                if (adapter == null) {
+                    Log.d("HomeFragment", "AdapterはNullです")
+                } else {
+                    changeShopList(shopLists)
+                    binding.homeImage.visibility = View.GONE
+                    binding.homeMessage.visibility = View.GONE
+
+                }
             }
         }
 
