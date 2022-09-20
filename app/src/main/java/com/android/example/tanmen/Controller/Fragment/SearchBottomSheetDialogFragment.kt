@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
-import com.android.example.tanmen.Controller.Fragment.HomeFragment.Companion.REQ_KEY
-import com.android.example.tanmen.Controller.Fragment.HomeFragment.Companion.createArgments
+import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.REQ_KEY
+import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.createArgments
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

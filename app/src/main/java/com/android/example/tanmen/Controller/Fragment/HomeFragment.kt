@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.tanmen.Model.Shop
@@ -22,15 +23,6 @@ class HomeFragment : Fragment() {
     private var adapter: ShopListAdapter? = null
     private var shopList = mutableListOf<Shop>()
 
-    companion object {
-        const val REQ_KEY: String = "shop"
-        private const val ARG_SHOP: String = "shop"
-
-        fun createArgments(shop: MutableList<Shop>): Bundle {
-            return bundleOf(ARG_SHOP to shop)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,25 +33,6 @@ class HomeFragment : Fragment() {
         adapter = ShopListAdapter(shopList)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-
-        setFragmentResultListener(REQ_KEY) { _, bundle ->
-            val shopLists = bundle.getSerializable(ARG_SHOP) as MutableList<Shop>
-            if (shopLists.isEmpty()) {
-                emptyTaskListDialog()
-                changeShopList(shopLists)
-                binding.homeImage.visibility = View.VISIBLE
-                binding.homeMessage.visibility = View.VISIBLE
-            } else {
-                if (adapter == null) {
-                    Log.d("HomeFragment", "AdapterはNullです")
-                } else {
-                    changeShopList(shopLists)
-                    binding.homeImage.visibility = View.GONE
-                    binding.homeMessage.visibility = View.GONE
-
-                }
-            }
-        }
 
         adapter?.setOnShopCellClickListener(
             object : ShopListAdapter.OnShopCellClickListener {
