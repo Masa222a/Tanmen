@@ -18,12 +18,13 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     companion object {
-        const val REQ_KEY: String = "shop"
-        private const val ARG_SHOP: String = "shop"
+        fun newInstance() = MainFragment()
 
-        fun createArgments(shop: MutableList<Shop>): Bundle {
-            return bundleOf(ARG_SHOP to shop)
-        }
+        private const val REQUEST_KEY = "request_key"
+    }
+
+    interface ShopDataList {
+        var shop: MutableList<Shop>
     }
 
     override fun onCreateView(
@@ -45,11 +46,13 @@ class MainFragment : Fragment() {
             openBottomSheet()
         }
 
-        setFragmentResultListener(REQ_KEY) { _, bundle ->
-            val shopList = bundle.getSerializable(ARG_SHOP)
-            val fragment = childFragmentManager.fragments as HomeFragment
-            bundle.putSerializable("shopList", shopList)
-            fragment.arguments = bundle
+        childFragmentManager.setFragmentResultListener(
+            REQUEST_KEY,
+            viewLifecycleOwner
+        ) { _, result: Bundle ->
+            val shop = result.getSerializable(SearchBottomSheetDialogFragment.KEY_CLICK) as MutableList<Shop>
+
+            abstract class Shop(shop: MutableList<Shop>) : ShopDataList
         }
 
         return binding.root
@@ -64,7 +67,9 @@ class MainFragment : Fragment() {
     }
 
     fun openBottomSheet() {
-        val dialog = SearchBottomSheetDialogFragment()
+        val dialog = SearchBottomSheetDialogFragment.newInstance(
+            requestKey = REQUEST_KEY
+        )
         dialog.show(childFragmentManager, dialog.tag)
     }
 }
