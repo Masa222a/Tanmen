@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
-import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.REQ_KEY
-import com.android.example.tanmen.Controller.Fragment.MainFragment.Companion.createArgments
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,6 +17,20 @@ import kotlinx.coroutines.launch
 
 class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSearchBottomSheetDialogBinding
+
+    private val _requestKey: String
+        get() = requireArguments().getString(KEY_REQUEST, "")
+
+    companion object {
+        fun newInstance(
+            requestKey: String
+        ) = SearchBottomSheetDialogFragment().apply {
+            arguments = bundleOf(KEY_REQUEST to requestKey)
+        }
+
+        const val KEY_CLICK = "shopData"
+        private const val KEY_REQUEST = "key_request"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +47,9 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                         ShopService.instance.fetchUrl(distance) {
                             Log.d("shopData", "$it")
 
-                            setFragmentResult(
-                                REQ_KEY,
-                                createArgments(it)
-                            )
+                            val bundle = bundleOf(KEY_CLICK to it)
+                            setFragmentResult(_requestKey, bundle)
+
                         }
                     }else {
                         Toast.makeText(activity, "距離を選択してください", Toast.LENGTH_SHORT).show()
