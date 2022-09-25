@@ -17,6 +17,7 @@ import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.View.ShopListAdapter
 import com.android.example.tanmen.databinding.FragmentHomeBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -57,11 +58,12 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @DelicateCoroutinesApi
     @SuppressLint("NotifyDataSetChanged")
     fun changeShopList(shopLists: MutableList<Shop>) {
-//        adapter?.shopList = shopLists
-//        adapter?.notifyDataSetChanged()
         GlobalScope.launch(Dispatchers.Main) {
+            binding.homeMessage.visibility = View.GONE
+            binding.homeImage.visibility = View.GONE
             adapter?.shopList = shopLists
             adapter?.notifyDataSetChanged()
         }

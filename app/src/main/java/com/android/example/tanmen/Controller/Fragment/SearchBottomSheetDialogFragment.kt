@@ -17,14 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
 class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
-    interface SearchBottomSheetDialogFragmentCallBackListener {
-        fun callback(shops: List<Shop>)
-    }
-
-    var listener: SearchBottomSheetDialogFragmentCallBackListener? = null
-
-    var mainFragment: MainFragment? = null
-
     private lateinit var binding: FragmentSearchBottomSheetDialogBinding
 
     private val _requestKey: String
@@ -56,9 +48,8 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                         ShopService.instance.fetchUrl(distance) {
                             Log.d("shopData", "$it")
 
-                            listener?.callback(it)
-//                            val bundle = bundleOf(KEY_CLICK to it)
-//                            setFragmentResult(_requestKey, bundle)
+                            val bundle = bundleOf(KEY_CLICK to it)
+                            setFragmentResult(_requestKey, bundle)
 
                         }
                     }else {
