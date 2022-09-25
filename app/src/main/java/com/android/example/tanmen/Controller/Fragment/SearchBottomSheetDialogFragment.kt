@@ -10,12 +10,21 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.android.example.tanmen.API.ShopService
+import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
 class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
+    interface SearchBottomSheetDialogFragmentCallBackListener {
+        fun callback(shops: List<Shop>)
+    }
+
+    var listener: SearchBottomSheetDialogFragmentCallBackListener? = null
+
+    var mainFragment: MainFragment? = null
+
     private lateinit var binding: FragmentSearchBottomSheetDialogBinding
 
     private val _requestKey: String
@@ -47,8 +56,9 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                         ShopService.instance.fetchUrl(distance) {
                             Log.d("shopData", "$it")
 
-                            val bundle = bundleOf(KEY_CLICK to it)
-                            setFragmentResult(_requestKey, bundle)
+                            listener?.callback(it)
+//                            val bundle = bundleOf(KEY_CLICK to it)
+//                            setFragmentResult(_requestKey, bundle)
 
                         }
                     }else {

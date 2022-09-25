@@ -17,6 +17,9 @@ import com.android.example.tanmen.Model.Shop
 import com.android.example.tanmen.R
 import com.android.example.tanmen.View.ShopListAdapter
 import com.android.example.tanmen.databinding.FragmentHomeBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -29,7 +32,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val recyclerView = binding.shopList
-        val layoutManager = LinearLayoutManager(recyclerView.context)
+        val layoutManager = LinearLayoutManager(activity)
         adapter = ShopListAdapter(shopList)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
@@ -55,9 +58,13 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun changeShopList(shopLists: MutableList<Shop>) {
-        adapter?.shopList = shopLists
-        adapter?.notifyDataSetChanged()
+    fun changeShopList(shopLists: MutableList<Shop>) {
+//        adapter?.shopList = shopLists
+//        adapter?.notifyDataSetChanged()
+        GlobalScope.launch(Dispatchers.Main) {
+            adapter?.shopList = shopLists
+            adapter?.notifyDataSetChanged()
+        }
     }
 
     private fun emptyTaskListDialog() {

@@ -14,7 +14,7 @@ import com.android.example.tanmen.View.BottomNavigationPagerAdapter
 import com.android.example.tanmen.View.ShopListAdapter
 import com.android.example.tanmen.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), SearchBottomSheetDialogFragment.SearchBottomSheetDialogFragmentCallBackListener {
     private lateinit var binding: FragmentMainBinding
 
     companion object {
@@ -23,8 +23,8 @@ class MainFragment : Fragment() {
         private const val REQUEST_KEY = "request_key"
     }
 
-    interface ShopDataList {
-        var shop: MutableList<Shop>
+    interface ShopData {
+        val value: MutableList<Shop>
     }
 
     override fun onCreateView(
@@ -51,8 +51,8 @@ class MainFragment : Fragment() {
             viewLifecycleOwner
         ) { _, result: Bundle ->
             val shop = result.getSerializable(SearchBottomSheetDialogFragment.KEY_CLICK) as MutableList<Shop>
-
-            abstract class Shop(shop: MutableList<Shop>) : ShopDataList
+            val fragment = childFragmentManager.fragments.first { it is HomeFragment } as HomeFragment
+            fragment.changeShopList(shop)
         }
 
         return binding.root
@@ -70,6 +70,11 @@ class MainFragment : Fragment() {
         val dialog = SearchBottomSheetDialogFragment.newInstance(
             requestKey = REQUEST_KEY
         )
+        dialog.listener = this
         dialog.show(childFragmentManager, dialog.tag)
+    }
+
+    override fun callback(shops: List<Shop>) {
+        TODO("Not yet implemented")
     }
 }
