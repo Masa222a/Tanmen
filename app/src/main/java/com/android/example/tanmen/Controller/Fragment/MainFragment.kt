@@ -14,17 +14,13 @@ import com.android.example.tanmen.View.BottomNavigationPagerAdapter
 import com.android.example.tanmen.View.ShopListAdapter
 import com.android.example.tanmen.databinding.FragmentMainBinding
 
-class MainFragment : Fragment(), SearchBottomSheetDialogFragment.SearchBottomSheetDialogFragmentCallBackListener {
+class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     companion object {
         fun newInstance() = MainFragment()
 
         private const val REQUEST_KEY = "request_key"
-    }
-
-    interface ShopData {
-        val value: MutableList<Shop>
     }
 
     override fun onCreateView(
@@ -70,11 +66,6 @@ class MainFragment : Fragment(), SearchBottomSheetDialogFragment.SearchBottomShe
         val dialog = SearchBottomSheetDialogFragment.newInstance(
             requestKey = REQUEST_KEY
         )
-        dialog.listener = this
         dialog.show(childFragmentManager, dialog.tag)
-    }
-
-    override fun callback(shops: List<Shop>) {
-        TODO("Not yet implemented")
     }
 }
