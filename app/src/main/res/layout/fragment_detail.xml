@@ -19,7 +19,8 @@
             android:layout_height="300dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ramen_dining_24px"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"/>
 
         <TextView
             android:id="@+id/name_label"
