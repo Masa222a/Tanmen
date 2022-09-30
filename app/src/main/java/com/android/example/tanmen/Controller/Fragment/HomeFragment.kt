@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
                     Log.d("bundle", "$bundle")
                     parentFragmentManager
                         .beginTransaction()
-                        .replace(R.id.container, DetailFragment())
+                        .replace(R.id.container, fragment)
                         .addToBackStack(null)
                         .commit()
                 }
