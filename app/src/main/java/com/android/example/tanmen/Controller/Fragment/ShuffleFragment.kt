@@ -17,6 +17,8 @@ import com.android.example.tanmen.R
 import com.android.example.tanmen.databinding.FragmentShuffleBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -45,15 +47,7 @@ class ShuffleFragment : Fragment() {
                 var data: MutableList<Shop>
                 ShopService.instance.fetchUrl(ShopService.UrlCreate.Distance.fiveHundred) {
                     data = it
-                    if (data.isNotEmpty()) {
-                        binding.nameLabel.visibility = View.VISIBLE
-                        binding.addressLabel.visibility = View.VISIBLE
-                        progressDialog.dismiss()
-                        val index = (0..data.size).random()
-                        val randomData = data[index]
-                        changeContent(randomData)
-                        Log.d("ShuffleFragment", "${ShopService.instance.location}")
-                    } else {
+                    if (data.isNullOrEmpty()) {
                         binding.nameLabel.visibility = View.GONE
                         binding.addressLabel.visibility = View.GONE
                         progressDialog.dismiss()
@@ -71,6 +65,14 @@ class ShuffleFragment : Fragment() {
                             .show()
 
                         Log.d("ShuffleFragment", "店のdataが見つかりませんでした。")
+                    } else {
+                        binding.nameLabel.visibility = View.VISIBLE
+                        binding.addressLabel.visibility = View.VISIBLE
+                        progressDialog.dismiss()
+                        val index = (0..data.size).random()
+                        val randomData = data[index]
+                        changeContent(randomData)
+                        Log.d("ShuffleFragment", "${ShopService.instance.location}")
                     }
                 }
             } else {
@@ -80,8 +82,10 @@ class ShuffleFragment : Fragment() {
     }
 
     private fun changeContent(shopData: Shop) {
-        Picasso.get().load(shopData.image).resize(72, 72).into(binding.shopPhoto)
-        binding.shopName.text = shopData.name
-        binding.shopAddress.text = shopData.address
+        GlobalScope.launch(Dispatchers.Main) {
+            Picasso.get().load(shopData.image).resize(72, 72).into(binding.shopPhoto)
+            binding.shopName.text = shopData.name
+            binding.shopAddress.text = shopData.address
+        }
     }
 }
