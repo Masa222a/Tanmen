@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -66,8 +68,6 @@ class ShuffleFragment : Fragment() {
 
                         Log.d("ShuffleFragment", "店のdataが見つかりませんでした。")
                     } else {
-                        binding.nameLabel.visibility = View.VISIBLE
-                        binding.addressLabel.visibility = View.VISIBLE
                         progressDialog.dismiss()
                         val index = (0..data.size).random()
                         val randomData = data[index]
@@ -83,6 +83,8 @@ class ShuffleFragment : Fragment() {
 
     private fun changeContent(shopData: Shop) {
         GlobalScope.launch(Dispatchers.Main) {
+            binding.nameLabel.visibility = View.VISIBLE
+            binding.addressLabel.visibility = View.VISIBLE
             Picasso.get().load(shopData.image).resize(72, 72).into(binding.shopPhoto)
             binding.shopName.text = shopData.name
             binding.shopAddress.text = shopData.address

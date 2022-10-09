@@ -35,7 +35,7 @@ class ShopService private constructor(){
                     callback(shopData)
                 }
                 is HTTPResponse.Failure -> {
-
+                    callback(mutableListOf())
                 }
             }
         }
