@@ -50,23 +50,25 @@ class ShuffleFragment : Fragment() {
                 ShopService.instance.fetchUrl(ShopService.UrlCreate.Distance.fiveHundred) {
                     data = it
                     if (data.isNullOrEmpty()) {
-                        binding.nameLabel.visibility = View.GONE
-                        binding.addressLabel.visibility = View.GONE
-                        progressDialog.dismiss()
-                        AlertDialog.Builder(requireActivity())
-                            .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
-                            .setPositiveButton("はい", object : DialogInterface.OnClickListener {
-                                override fun onClick(dialog: DialogInterface?, which: Int) {
-                                    val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
-                                    mainFragment.openBottomSheet()
-                                    val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager) as ViewPager2
-                                    val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
-                                    viewPager.currentItem -= 1
-                                }
-                            })
-                            .show()
+                        GlobalScope.launch(Dispatchers.Main) {
+                            binding.nameLabel.visibility = View.GONE
+                            binding.addressLabel.visibility = View.GONE
+                            progressDialog.dismiss()
+                            AlertDialog.Builder(requireActivity())
+                                .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
+                                .setPositiveButton("はい", object : DialogInterface.OnClickListener {
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                                        val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
+                                        mainFragment.openBottomSheet()
+                                        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager) as ViewPager2
+                                        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+                                        viewPager.currentItem -= 1
+                                    }
+                                })
+                                .show()
 
-                        Log.d("ShuffleFragment", "店のdataが見つかりませんでした。")
+                            Log.d("ShuffleFragment", "店のdataが見つかりませんでした。")
+                        }
                     } else {
                         progressDialog.dismiss()
                         val index = (0..data.size).random()
