@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="jp.example.tanmen.Controller.Fragment.MainFragment"
+        android:name="jp.example.tanmen.View.Fragment.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_nav_Main_to_homeFragment"
@@ -17,12 +17,12 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="jp.example.tanmen.Controller.Fragment.HomeFragment"
+        android:name="jp.example.tanmen.View.Fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/shuffleFragment"
-        android:name="jp.example.tanmen.Controller.Fragment.ShuffleFragment"
+        android:name="jp.example.tanmen.View.Fragment.ShuffleFragment"
         android:label="fragment_shuffle"
         tools:layout="@layout/fragment_shuffle" />
 </navigation>

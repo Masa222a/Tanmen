@@ -1,0 +1,78 @@
+package jp.example.tanmen.View.Fragment
+
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import jp.example.tanmen.Model.Entity.Shop
+import jp.example.tanmen.R
+import jp.example.tanmen.View.Adapter.ShopListAdapter
+import jp.example.tanmen.ViewModel.HomeViewModel
+import jp.example.tanmen.databinding.FragmentHomeBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+class HomeFragment : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
+    private var adapter: ShopListAdapter? = null
+    private var shopList = mutableListOf<Shop>()
+    private val viewModel: HomeViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val recyclerView = binding.shopList
+        val layoutManager = LinearLayoutManager(activity)
+        adapter = ShopListAdapter(shopList)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+
+        adapter?.setOnShopCellClickListener(
+            object : ShopListAdapter.OnShopCellClickListener {
+                override fun onItemClick(shop: Shop) {
+                    val fragment = DetailFragment()
+                    val bundle = Bundle()
+                    bundle.putSerializable("shopDetail", shop)
+                    fragment.arguments = bundle
+                    Log.d("bundle", "$bundle")
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        )
+
+        return binding.root
+    }
+
+    @DelicateCoroutinesApi
+    @SuppressLint("NotifyDataSetChanged")
+    fun changeShopList(shopLists: MutableList<Shop>) {
+        GlobalScope.launch(Dispatchers.Main) {
+            binding.homeMessage.visibility = View.GONE
+            binding.homeImage.visibility = View.GONE
+            adapter?.shopList = shopLists
+            adapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun emptyTaskListDialog() {
+        AlertDialog.Builder(requireActivity())
+            .setMessage("該当する店舗が見つかりませんでした。\n" +
+                    "検索条件を変更してください。")
+            .setPositiveButton("はい") { _, _ -> }
+            .show()
+    }
+}

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tanmen">
         <activity
-            android:name=".Controller.Activity.MainActivity"
+            android:name=".View.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
