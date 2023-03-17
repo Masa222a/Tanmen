@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="shuffleViewModel"
-            type="jp.example.tanmen.ViewModel.ShuffleViewModel" />
+            type="jp.example.tanmen.viewModel.ShuffleViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".View.Fragment.ShuffleFragment">
+        tools:context=".view.Fragment.ShuffleFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

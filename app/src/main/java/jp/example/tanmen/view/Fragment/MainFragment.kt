@@ -1,4 +1,4 @@
-package jp.example.tanmen.View.Fragment
+package jp.example.tanmen.view.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,15 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import jp.example.tanmen.Model.Entity.Shop
 import jp.example.tanmen.R
-import jp.example.tanmen.View.Adapter.BottomNavigationPagerAdapter
+import jp.example.tanmen.Adapter.BottomNavigationPagerAdapter
 import jp.example.tanmen.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     companion object {
-        fun newInstance() = MainFragment()
-
         private const val REQUEST_KEY = "request_key"
     }
 

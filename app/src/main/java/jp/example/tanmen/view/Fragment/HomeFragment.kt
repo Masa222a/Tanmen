@@ -1,4 +1,4 @@
-package jp.example.tanmen.View.Fragment
+package jp.example.tanmen.view.Fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.example.tanmen.Model.Entity.Shop
 import jp.example.tanmen.R
-import jp.example.tanmen.View.Adapter.ShopListAdapter
-import jp.example.tanmen.ViewModel.HomeViewModel
+import jp.example.tanmen.Adapter.ShopListAdapter
+import jp.example.tanmen.viewModel.HomeViewModel
 import jp.example.tanmen.databinding.FragmentHomeBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package jp.example.tanmen.View.Fragment
+package jp.example.tanmen.view.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle

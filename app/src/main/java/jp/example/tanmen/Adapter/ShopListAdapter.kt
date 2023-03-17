@@ -1,4 +1,4 @@
-package jp.example.tanmen.View.Adapter
+package jp.example.tanmen.Adapter
 
 import android.view.LayoutInflater
 import android.view.View

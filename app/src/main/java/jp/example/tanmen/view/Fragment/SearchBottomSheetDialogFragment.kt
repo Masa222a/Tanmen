@@ -1,4 +1,4 @@
-package jp.example.tanmen.View.Fragment
+package jp.example.tanmen.view.Fragment
 
 import android.os.Bundle
 import android.util.Log

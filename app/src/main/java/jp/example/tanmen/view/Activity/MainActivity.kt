@@ -1,4 +1,4 @@
-package jp.example.tanmen.View.Activity
+package jp.example.tanmen.view.Activity
 
 import android.Manifest
 import android.content.Context
@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.AppLaunchChecker
 import androidx.core.content.ContextCompat
-import jp.example.tanmen.Model.Entity.API.ShopService
+import jp.example.tanmen.Model.API.ShopService
 import jp.example.tanmen.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), LocationListener {

@@ -1,4 +1,4 @@
-package jp.example.tanmen.ViewModel
+package jp.example.tanmen.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
