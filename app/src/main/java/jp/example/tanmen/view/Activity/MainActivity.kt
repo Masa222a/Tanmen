@@ -16,8 +16,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.AppLaunchChecker
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import jp.example.tanmen.Model.API.ShopService
+import jp.example.tanmen.R
 import jp.example.tanmen.databinding.ActivityMainBinding
+import jp.example.tanmen.view.Fragment.MainFragment
 
 class MainActivity : AppCompatActivity(), LocationListener {
     private lateinit var binding: ActivityMainBinding
@@ -36,7 +40,13 @@ class MainActivity : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var boot = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
+
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            add<MainFragment>(binding.fragment.id)
+        }
+
+        val boot = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
         if (!boot) {
             AlertDialog.Builder(this)
                 .setMessage("右下の検索ボタンから検索してください。")
