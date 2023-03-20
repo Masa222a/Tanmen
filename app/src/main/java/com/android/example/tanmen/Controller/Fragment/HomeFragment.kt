@@ -1,0 +1,92 @@
+package com.android.example.tanmen.Controller.Fragment
+
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.example.tanmen.Model.Shop
+import com.android.example.tanmen.R
+import com.android.example.tanmen.View.ShopListAdapter
+import com.android.example.tanmen.databinding.FragmentHomeBinding
+
+class HomeFragment : Fragment() {
+    private lateinit var binding: FragmentHomeBinding
+    private var adapter: ShopListAdapter? = null
+    private var shopList = mutableListOf<Shop>()
+
+    companion object {
+        const val REQ_KEY: String = "shop"
+        private const val ARG_SHOP: String = "shop"
+
+        fun createArgments(shop: MutableList<Shop>): Bundle {
+            return bundleOf(ARG_SHOP to shop)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val recyclerView = binding.shopList
+        val layoutManager = LinearLayoutManager(recyclerView.context)
+        adapter = ShopListAdapter(shopList)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+
+        setFragmentResultListener(REQ_KEY) { _, bundle ->
+            val shopLists = bundle.getSerializable(ARG_SHOP) as MutableList<Shop>
+            if (shopLists.isEmpty()) {
+                emptyTaskListDialog()
+                changeShopList(shopLists)
+                binding.homeImage.isVisible = true
+                binding.homeMessage.isVisible = true
+            } else {
+                changeShopList(shopLists)
+                binding.homeImage.isVisible = false
+                binding.homeMessage.isVisible = false
+            }
+        }
+
+        adapter?.setOnShopCellClickListener(
+            object : ShopListAdapter.OnShopCellClickListener {
+                override fun onItemClick(shop: Shop) {
+                    val fragment = DetailFragment()
+                    val bundle = Bundle()
+                    bundle.putSerializable("shopDetail", shop)
+                    fragment.arguments = bundle
+                    Log.d("bundle", "$bundle")
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, DetailFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        )
+
+        return binding.root
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun changeShopList(shopLists: MutableList<Shop>) {
+        adapter?.shopList = shopLists
+        adapter?.notifyDataSetChanged()
+    }
+
+    private fun emptyTaskListDialog() {
+        AlertDialog.Builder(requireActivity())
+            .setMessage("該当する店舗が見つかりませんでした。\n" +
+                    "検索条件を変更してください。")
+            .setPositiveButton("はい") { _, _ -> }
+            .show()
+    }
+}

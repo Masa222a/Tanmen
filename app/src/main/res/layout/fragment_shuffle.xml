@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShuffleFragment">
+    tools:context=".Controller.Fragment.ShuffleFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:scaleType="fitCenter"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ramen_dining_24px"
             android:layout_gravity="center" />
 
@@ -26,19 +27,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/name_label"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="店名"
+            android:visibility="gone"
             android:layout_marginStart="50dp"/>
 
         <TextView
             android:id="@+id/shop_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="京都北白川ラーメン魁力屋 イオンモールりんくう泉南店"
+            android:text=""
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
@@ -48,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/address_label"
+            android:text="住所"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -58,18 +61,13 @@
             android:id="@+id/shop_address"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="大阪府泉南市りんくう南浜３−１２ 1F レストラン街内"
+            android:text=""
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/serach_button"
-            android:layout_gravity="center"/>
+
+
     </LinearLayout>
 </ScrollView>
