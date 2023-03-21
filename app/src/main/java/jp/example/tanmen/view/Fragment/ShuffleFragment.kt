@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -37,18 +38,6 @@ class ShuffleFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.shuffleViewModel = viewModel
 
-        viewModel.shopPhoto.observe(viewLifecycleOwner, Observer {
-            viewModel.setImageUrl(binding.shopPhoto, it)
-        })
-
-        viewModel.shopName.observe(viewLifecycleOwner, Observer {
-            binding.shopName.text = it
-        })
-
-        viewModel.shopAddress.observe(viewLifecycleOwner, Observer {
-            binding.shopAddress.text = it
-        })
-
         return binding.root
     }
 
@@ -63,9 +52,9 @@ class ShuffleFragment : Fragment() {
                 show()
             }
             if (ShopService.instance.location != null) {
-                var data = mutableListOf<Shop>()
-                data = viewModel.getData()
-                if (data.isNullOrEmpty()) {
+                viewModel.getData()
+                val shopData: MutableLiveData<Shop>? = viewModel.data
+                if (shopData == null) {
                     GlobalScope.launch(Dispatchers.Main) {
                         binding.nameLabel.visibility = View.GONE
                         binding.addressLabel.visibility = View.GONE
@@ -75,10 +64,10 @@ class ShuffleFragment : Fragment() {
                             .setPositiveButton("はい", object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface?, which: Int) {
                                     val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
-                                    mainFragment.openBottomSheet()
                                     val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager) as ViewPager2
                                     val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
-                                    viewPager.currentItem -= 1
+                                    viewPager.currentItem = 0
+                                    mainFragment.openBottomSheet()
                                 }
                             })
                             .show()
@@ -87,7 +76,13 @@ class ShuffleFragment : Fragment() {
                     }
                 } else {
                     progressDialog.dismiss()
-                    viewModel.changeContent(data)
+                    binding.nameLabel.visibility = View.VISIBLE
+                    binding.addressLabel.visibility = View.VISIBLE
+                    shopData.observe(viewLifecycleOwner) {
+                        Picasso.get().load(it.image).resize(72, 72).into(binding.shopPhoto)
+                        binding.shopName.text = it.name
+                        binding.shopAddress.text = it.address
+                    }
                     Log.d("ShuffleFragment", "${ShopService.instance.location}")
                 }
             } else {
