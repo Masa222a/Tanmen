@@ -12,13 +12,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
 import jp.example.tanmen.Model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.FragmentShuffleBinding
 import jp.example.tanmen.viewModel.ShuffleViewModel
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,19 +31,17 @@ class ShuffleFragment : Fragment() {
     ): View {
         binding = FragmentShuffleBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.shuffleViewModel = viewModel
 
         return binding.root
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("SuspiciousIndentation")
     override fun onResume() {
         super.onResume()
 
         val progressDialog = ProgressDialog(activity)
-//        lifecycleScope.launch {
             progressDialog.apply {
                 setTitle("検索中です")
                 setProgressStyle(ProgressDialog.STYLE_SPINNER)
@@ -53,19 +49,21 @@ class ShuffleFragment : Fragment() {
             }
             if (ShopService.instance.location != null) {
                 viewModel.getData()
-                viewModel.data?.observe(viewLifecycleOwner) {
+                    Log.d("確認フラグメント", "データ取得後")
+                viewModel.data.observe(viewLifecycleOwner) {
+                    Log.d("確認フラグメント", "オブザーブ内")
                     if (it == null) {
+                        Log.d("確認フラグメント", "オブザーブ内null")
                         GlobalScope.launch(Dispatchers.Main) {
+                            progressDialog.dismiss()
                             binding.nameLabel.visibility = View.GONE
                             binding.addressLabel.visibility = View.GONE
-                            progressDialog.dismiss()
                             AlertDialog.Builder(requireActivity())
                                 .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
                                 .setPositiveButton("はい", object : DialogInterface.OnClickListener {
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
-                                        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager) as ViewPager2
-                                        val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+                                        val viewPager = activity?.findViewById(R.id.viewPager) as ViewPager2
                                         viewPager.currentItem = 0
                                         mainFragment.openBottomSheet()
                                     }
@@ -90,6 +88,5 @@ class ShuffleFragment : Fragment() {
             } else {
                 Log.d("ShuffleFragmentLocation", "locationがnullです。")
             }
-//        }
     }
 }
