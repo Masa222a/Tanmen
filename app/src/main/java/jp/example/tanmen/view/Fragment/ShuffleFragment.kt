@@ -86,6 +86,7 @@ class ShuffleFragment : Fragment() {
                     }
                 }
             } else {
+                progressDialog.dismiss()
                 Log.d("ShuffleFragmentLocation", "locationがnullです。")
             }
     }
