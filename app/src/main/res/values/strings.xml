@@ -10,6 +10,9 @@
     <string name="name_label">店名</string>
     <string name="address_label">住所</string>
     <string name="hours_label">営業時間</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yes">はい</string>
+    <string name="no_search_result">該当する店舗が見つかりませんでした。\n検索条件を変更してください。</string>
+    <string name="guide_search">右下の検索ボタンから検索してください。</string>
+    <string name="searching">検索中です</string>
+    <string name="please_select_distance">距離を選択してください</string>
 </resources>
