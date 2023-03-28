@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         val boot = AppLaunchChecker.hasStartedFromLauncher(applicationContext)
         if (!boot) {
             AlertDialog.Builder(this)
-                .setMessage("右下の検索ボタンから検索してください。")
+                .setMessage(getString(R.string.guide_search))
                 .setPositiveButton("Ok", null)
                 .show()
 

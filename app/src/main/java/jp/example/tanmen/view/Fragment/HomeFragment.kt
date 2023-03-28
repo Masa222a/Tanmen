@@ -70,9 +70,8 @@ class HomeFragment : Fragment() {
 
     private fun emptyTaskListDialog() {
         AlertDialog.Builder(requireActivity())
-            .setMessage("該当する店舗が見つかりませんでした。\n" +
-                    "検索条件を変更してください。")
-            .setPositiveButton("はい") { _, _ -> }
+            .setMessage(getString(R.string.no_search_result))
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> }
             .show()
     }
 }

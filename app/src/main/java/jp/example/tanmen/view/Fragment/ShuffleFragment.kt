@@ -43,7 +43,7 @@ class ShuffleFragment : Fragment() {
 
         val progressDialog = ProgressDialog(activity)
             progressDialog.apply {
-                setTitle("検索中です")
+                setTitle(getString(R.string.searching))
                 setProgressStyle(ProgressDialog.STYLE_SPINNER)
                 show()
             }
@@ -59,8 +59,8 @@ class ShuffleFragment : Fragment() {
                             binding.nameLabel.visibility = View.GONE
                             binding.addressLabel.visibility = View.GONE
                             AlertDialog.Builder(requireActivity())
-                                .setMessage("該当する店舗が見つかりませんでした。\n検索条件を変更してください。")
-                                .setPositiveButton("はい", object : DialogInterface.OnClickListener {
+                                .setMessage(getString(R.string.no_search_result))
+                                .setPositiveButton(getString(R.string.yes), object : DialogInterface.OnClickListener {
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
                                         val viewPager = activity?.findViewById(R.id.viewPager) as ViewPager2

@@ -52,7 +52,7 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
                         }
                     }else {
-                        Toast.makeText(activity, "距離を選択してください", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
                         Log.d("toggle選択なし", "選択されていません")
                     }
                 } else {
