@@ -15,4 +15,6 @@
     <string name="guide_search">右下の検索ボタンから検索してください。</string>
     <string name="searching">検索中です</string>
     <string name="please_select_distance">距離を選択してください</string>
+    <string name="shop_name_label">店名</string>
+    <string name="shop_address_label">住所</string>
 </resources>
