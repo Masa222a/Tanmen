@@ -15,4 +15,5 @@
     <string name="guide_search">右下の検索ボタンから検索してください。</string>
     <string name="searching">検索中です</string>
     <string name="please_select_distance">距離を選択してください</string>
+    <string name="home_guide_search">右下の検索ボタンから検索条件を設定し、検索してください。</string>
 </resources>
