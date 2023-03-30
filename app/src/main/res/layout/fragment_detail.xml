@@ -30,7 +30,7 @@
             android:paddingBottom="8dp"
             android:text="@string/name_label"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginStart="50dp"/>
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="京都北白川ラーメン魁力屋 イオンモールりんくう泉南店"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
@@ -52,7 +52,7 @@
             android:paddingBottom="8dp"
             android:text="@string/address_label"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginStart="50dp"/>
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:text="大阪府泉南市りんくう南浜３−１２ 1F レストラン街内"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
 
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="@string/hours_label"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
             android:paddingBottom="8dp"
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:text="月～日、祝日、祝前日: 11:00～23:00 （料理L.O. 23:00）"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:layout_gravity="center" />
 
