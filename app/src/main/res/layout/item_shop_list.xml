@@ -21,7 +21,7 @@
         android:paddingTop="8dp"
         android:textColor="@color/black"
         android:text="吉備らう麺処 黒膳や外伝 ご当地岡山ラーメン店"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
