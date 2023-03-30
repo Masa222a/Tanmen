@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        android:textSize="24sp"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/distance_title"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/distance"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
