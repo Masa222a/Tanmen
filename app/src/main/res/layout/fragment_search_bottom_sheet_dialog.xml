@@ -42,7 +42,7 @@
         app:selectionRequired="true">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/five_hundred_button"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/one_thousand_button"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/two_thousand_button"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
