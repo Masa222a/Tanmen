@@ -69,16 +69,16 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private fun getCheckedButton(btnId: Int): ShopService.UrlCreate.Distance? {
         when (btnId) {
-            R.id.button1 -> {
+            R.id.five_hundred_button -> {
                 //500m
                 return ShopService.UrlCreate.Distance.fiveHundred
             }
-            R.id.button2 -> {
+            R.id.one_thousand_button -> {
                 //1000m
                 return ShopService.UrlCreate.Distance.oneThousand
 
             }
-            R.id.button3 -> {
+            R.id.two_thousand_button -> {
                 //2000m
                 return ShopService.UrlCreate.Distance.twoThousand
             }
