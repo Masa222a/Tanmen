@@ -46,21 +46,24 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/five_hundred_meters" />
+            android:text="@string/five_hundred_meters"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/button2"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/one_thousand_meters" />
+            android:text="@string/one_thousand_meters"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/button3"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/two_thousand_meters" />
+            android:text="@string/two_thousand_meters"
+            android:textAllCaps="false" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <Button
