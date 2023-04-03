@@ -22,6 +22,7 @@ import jp.example.tanmen.Model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.ActivityMainBinding
 import jp.example.tanmen.view.Fragment.MainFragment
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LocationListener {
     private lateinit var binding: ActivityMainBinding
@@ -30,9 +31,9 @@ class MainActivity : AppCompatActivity(), LocationListener {
     ) { isGranted: Boolean ->
         if (isGranted) {
             locationStart()
-            Log.d("location", "許可されました。")
+            Timber.d("locationが許可されました")
         } else {
-            Log.d("location", "拒否されました。")
+            Timber.d("locationが拒否されました")
         }
     }
 
@@ -65,17 +66,17 @@ class MainActivity : AppCompatActivity(), LocationListener {
     }
 
     private fun locationStart() {
-        Log.d("locationStart()", "locationStart()")
+        Timber.d("locationStart()")
 
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(
                 LocationManager.GPS_PROVIDER)
         ) {
-                Log.d("locationStart()","location manager Enabled")
+            Timber.d("location manager Enabled")
         } else {
             val settingsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(settingsIntent)
-            Log.d("locationStart()", "not gpsEnable, startActivity")
+            Timber.d("not gpsEnable, startActivity")
         }
 
         if (ContextCompat.checkSelfPermission(this,
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1000)
-            Log.d("locationStart", "checkSelfPermission false")
+            Timber.d("checkSelfPermission false")
             return
         }
         locationManager.requestLocationUpdates(
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
     override fun onLocationChanged(location: Location) {
         ShopService.instance.location = location
-        Log.d("locationchanged", "${location.latitude}, ${location.longitude}")
+        Timber.d("緯度${location.latitude}, 経度${location.longitude}")
     }
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
