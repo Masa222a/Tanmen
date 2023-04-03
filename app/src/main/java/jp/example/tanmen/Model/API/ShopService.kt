@@ -1,12 +1,11 @@
 package jp.example.tanmen.Model.API
 
 import android.location.Location
-import android.util.Log
 import jp.example.tanmen.Model.Entity.Shop
 import okhttp3.*
 import org.json.JSONObject
+import timber.log.Timber
 import java.io.IOException
-import java.lang.Exception
 import java.net.URL
 import java.util.concurrent.TimeUnit
 
@@ -92,7 +91,7 @@ class ShopService private constructor(){
         private val mainUrl = "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key="
         val url: String
             get() {
-                Log.d("UrlCreate", "${range}")
+                Timber.d("$range")
                 return if (location != null) {
                     "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
                 } else {

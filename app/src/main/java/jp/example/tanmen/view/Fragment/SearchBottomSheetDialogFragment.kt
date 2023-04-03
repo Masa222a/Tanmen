@@ -1,7 +1,6 @@
 package jp.example.tanmen.view.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import jp.example.tanmen.Model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSearchBottomSheetDialogBinding
@@ -45,7 +45,7 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                     if (btnId != -1) {
                         val distance = getCheckedButton(btnId)
                         ShopService.instance.fetchUrl(distance) {
-                            Log.d("shopData", "$it")
+                            Timber.d("$it")
 
                             val bundle = bundleOf(KEY_CLICK to it)
                             setFragmentResult(_requestKey, bundle)
@@ -53,10 +53,10 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
                         }
                     }else {
                         Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
-                        Log.d("toggle選択なし", "選択されていません")
+                        Timber.d("距離が選択されていません")
                     }
                 } else {
-                    Log.d("SearchBottomSheetDialogFragmentLocation", "locationがnullです。")
+                    Timber.d("locationがnullです")
                 }
             }
         }

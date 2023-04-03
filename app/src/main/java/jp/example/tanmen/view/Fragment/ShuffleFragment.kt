@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import jp.example.tanmen.viewModel.ShuffleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber.d
 
 class ShuffleFragment : Fragment() {
     private lateinit var binding: FragmentShuffleBinding
@@ -49,11 +49,10 @@ class ShuffleFragment : Fragment() {
             }
             if (ShopService.instance.location != null) {
                 viewModel.getData()
-                    Log.d("確認フラグメント", "データ取得後")
+                d("データ取得後")
                 viewModel.data.observe(viewLifecycleOwner) {
-                    Log.d("確認フラグメント", "オブザーブ内")
                     if (it == null) {
-                        Log.d("確認フラグメント", "オブザーブ内null")
+                        d("オブザーブ内null")
                         GlobalScope.launch(Dispatchers.Main) {
                             progressDialog.dismiss()
                             binding.nameLabel.visibility = View.GONE
@@ -69,8 +68,7 @@ class ShuffleFragment : Fragment() {
                                     }
                                 })
                                 .show()
-
-                            Log.d("ShuffleFragment", "店のdataが見つかりませんでした。")
+                            d("店のdataが見つかりませんでした")
                         }
                     } else {
                         GlobalScope.launch(Dispatchers.Main) {
@@ -81,13 +79,11 @@ class ShuffleFragment : Fragment() {
                             binding.shopName.text = it.name
                             binding.shopAddress.text = it.address
                         }
-
-                        Log.d("ShuffleFragment", "${ShopService.instance.location}")
                     }
                 }
             } else {
                 progressDialog.dismiss()
-                Log.d("ShuffleFragmentLocation", "locationがnullです。")
+                d("locationがnullです")
             }
     }
 }

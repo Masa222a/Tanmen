@@ -2,15 +2,15 @@ package jp.example.tanmen.view.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
 import jp.example.tanmen.Model.Entity.Shop
 import jp.example.tanmen.databinding.FragmentDetailBinding
-import com.squareup.picasso.Picasso
+import timber.log.Timber
 
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
@@ -28,7 +28,7 @@ class DetailFragment : Fragment() {
             binding.shopAddress.text = args.address
             binding.shopBusinessHours.text = args.hours
         }
-        Log.d("detailshop", "$args")
+        Timber.d("$args")
 
         requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
