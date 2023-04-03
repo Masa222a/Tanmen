@@ -23,7 +23,7 @@ import timber.log.Timber
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var adapter: ShopListAdapter? = null
-    private var shopList = mutableListOf<Shop>()
+    private val shopList = mutableListOf<Shop>()
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(

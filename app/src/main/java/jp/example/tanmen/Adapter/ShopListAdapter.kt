@@ -19,8 +19,8 @@ class ShopListAdapter(var shopList: MutableList<Shop>)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView = itemView.findViewById(R.id.image)
-        var shopAddress: TextView = itemView.findViewById(R.id.detail_name)
+        val image: ImageView = itemView.findViewById(R.id.image)
+        val shopAddress: TextView = itemView.findViewById(R.id.detail_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {

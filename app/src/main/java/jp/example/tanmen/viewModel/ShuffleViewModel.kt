@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ShuffleViewModel : ViewModel() {
-    var data = MutableLiveData<Shop>()
+    val data = MutableLiveData<Shop>()
 
     fun getData() {
         ShopService.instance.fetchUrl(ShopService.UrlCreate.Distance.fiveHundred) {
