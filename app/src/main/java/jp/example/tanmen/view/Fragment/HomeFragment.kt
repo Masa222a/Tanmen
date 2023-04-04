@@ -61,8 +61,10 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     fun changeShopList(shopLists: MutableList<Shop>) {
         GlobalScope.launch(Dispatchers.Main) {
-            binding.homeMessage.visibility = View.GONE
-            binding.homeImage.visibility = View.GONE
+            binding.apply {
+                homeMessage.visibility = View.GONE
+                homeImage.visibility = View.GONE
+            }
             adapter?.shopList = shopLists
             adapter?.notifyDataSetChanged()
         }

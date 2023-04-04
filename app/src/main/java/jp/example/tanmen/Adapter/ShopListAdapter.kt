@@ -32,9 +32,11 @@ class ShopListAdapter(var shopList: MutableList<Shop>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = shopList[position]
         Picasso.get().load(shop.image).resize(72, 72).into(holder.image)
-        holder.shopAddress.text = shop.name
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(shop)
+        holder.apply {
+            shopAddress.text = shop.name
+            itemView.setOnClickListener {
+                listener.onItemClick(shop)
+            }
         }
     }
 

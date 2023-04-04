@@ -37,33 +37,35 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBottomSheetDialogBinding.inflate(inflater, container, false)
+        binding.apply {
+            searchButton.setOnClickListener {
+                lifecycleScope.launch {
+                    if (ShopService.instance.location != null) {
+                        val btnId = binding.toggleButton.checkedButtonId
+                        if (btnId != -1) {
+                            val distance = getCheckedButton(btnId)
+                            ShopService.instance.fetchUrl(distance) {
+                                Timber.d("$it")
 
-        binding.searchButton.setOnClickListener {
-            lifecycleScope.launch {
-                if (ShopService.instance.location != null) {
-                    val btnId = binding.toggleButton.checkedButtonId
-                    if (btnId != -1) {
-                        val distance = getCheckedButton(btnId)
-                        ShopService.instance.fetchUrl(distance) {
-                            Timber.d("$it")
+                                val bundle = bundleOf(KEY_CLICK to it)
+                                setFragmentResult(_requestKey, bundle)
 
-                            val bundle = bundleOf(KEY_CLICK to it)
-                            setFragmentResult(_requestKey, bundle)
-
+                            }
+                        }else {
+                            Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
+                            Timber.d("距離が選択されていません")
                         }
-                    }else {
-                        Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
-                        Timber.d("距離が選択されていません")
+                    } else {
+                        Timber.d("locationがnullです")
                     }
-                } else {
-                    Timber.d("locationがnullです")
                 }
+            }
+
+            cancelButton.setOnClickListener {
+                dismiss()
             }
         }
 
-        binding.cancelButton.setOnClickListener {
-            dismiss()
-        }
         return binding.root
     }
 

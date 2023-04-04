@@ -24,17 +24,19 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        binding.viewPager.adapter = BottomNavigationPagerAdapter(this)
-        binding.viewPager.isUserInputEnabled = false
+        binding.let {
+            it.viewPager.adapter = BottomNavigationPagerAdapter(this)
+            it.viewPager.isUserInputEnabled = false
 
-        binding.bottomNavigation.setOnItemSelectedListener {
-            val currentItem = getCurrentItem(it.itemId)
-            binding.viewPager.setCurrentItem(currentItem, true)
-            return@setOnItemSelectedListener true
-        }
+            it.bottomNavigation.setOnItemSelectedListener {
+                val currentItem = getCurrentItem(it.itemId)
+                binding.viewPager.setCurrentItem(currentItem, true)
+                return@setOnItemSelectedListener true
+            }
 
-        binding.fab.setOnClickListener {
-            openBottomSheet()
+            it.fab.setOnClickListener {
+                openBottomSheet()
+            }
         }
 
         childFragmentManager.setFragmentResultListener(
