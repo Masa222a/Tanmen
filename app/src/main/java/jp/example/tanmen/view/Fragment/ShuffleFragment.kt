@@ -31,8 +31,10 @@ class ShuffleFragment : Fragment() {
     ): View {
         binding = FragmentShuffleBinding.inflate(inflater, container, false)
 
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.shuffleViewModel = viewModel
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            shuffleViewModel = viewModel
+        }
 
         return binding.root
     }
@@ -55,8 +57,10 @@ class ShuffleFragment : Fragment() {
                         d("オブザーブ内null")
                         GlobalScope.launch(Dispatchers.Main) {
                             progressDialog.dismiss()
-                            binding.nameLabel.visibility = View.GONE
-                            binding.addressLabel.visibility = View.GONE
+                            binding.apply {
+                                nameLabel.visibility = View.GONE
+                                addressLabel.visibility = View.GONE
+                            }
                             AlertDialog.Builder(requireActivity())
                                 .setMessage(getString(R.string.no_search_result))
                                 .setPositiveButton(getString(R.string.yes), object : DialogInterface.OnClickListener {
@@ -72,12 +76,14 @@ class ShuffleFragment : Fragment() {
                         }
                     } else {
                         GlobalScope.launch(Dispatchers.Main) {
-                            binding.nameLabel.visibility = View.VISIBLE
-                            binding.addressLabel.visibility = View.VISIBLE
+                            binding.apply {
+                                nameLabel.visibility = View.VISIBLE
+                                addressLabel.visibility = View.VISIBLE
+                                Picasso.get().load(it.image).resize(72, 72).into(shopPhoto)
+                                shopName.text = it.name
+                                shopAddress.text = it.address
+                            }
                             progressDialog.dismiss()
-                            Picasso.get().load(it.image).resize(72, 72).into(binding.shopPhoto)
-                            binding.shopName.text = it.name
-                            binding.shopAddress.text = it.address
                         }
                     }
                 }

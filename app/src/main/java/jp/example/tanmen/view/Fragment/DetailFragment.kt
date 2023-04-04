@@ -23,10 +23,12 @@ class DetailFragment : Fragment() {
 
         val args = arguments?.getSerializable("shopDetail") as Shop
         if (args != null) {
-            Picasso.get().load(args.image).resize(300, 300).into(binding.shopPhoto)
-            binding.shopName.text = args.name
-            binding.shopAddress.text = args.address
-            binding.shopBusinessHours.text = args.hours
+            binding.apply {
+                Picasso.get().load(args.image).resize(300, 300).into(shopPhoto)
+                shopName.text = args.name
+                shopAddress.text = args.address
+                shopBusinessHours.text = args.hours
+            }
         }
         Timber.d("$args")
 
