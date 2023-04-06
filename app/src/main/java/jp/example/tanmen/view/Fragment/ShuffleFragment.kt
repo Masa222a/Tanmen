@@ -95,8 +95,7 @@ class ShuffleFragment : Fragment() {
 
         return binding.root
     }
-
-    @SuppressLint("SuspiciousIndentation")
+    
     override fun onResume() {
         super.onResume()
         viewModel.getData()
