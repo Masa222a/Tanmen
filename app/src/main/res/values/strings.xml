@@ -18,4 +18,6 @@
     <string name="home_guide_search">右下の検索ボタンから検索条件を設定し、検索してください。</string>
     <string name="shop_name_label">店名</string>
     <string name="shop_address_label">住所</string>
+    <string name="loading">位置情報取得中です...</string>
+    <string name="location_false">位置情報を取得できませんでした。\n再度お試しください。</string>
 </resources>

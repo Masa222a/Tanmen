@@ -1,5 +1,7 @@
 package jp.example.tanmen.viewModel
 
+import android.location.Location
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +12,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class ShuffleViewModel : ViewModel() {
+    val location = MutableLiveData<Location>()
     val data = MutableLiveData<Shop>()
 
     fun getData() {
@@ -23,6 +26,16 @@ class ShuffleViewModel : ViewModel() {
                     Timber.d("データを取得しました")
                 }
             }
+        }
+    }
+
+    fun getLocation() {
+        if (ShopService.instance.location != null) {
+            location.postValue(ShopService.instance.location)
+            Timber.d("locationが取得できました")
+        } else {
+            location.postValue(null)
+            Timber.d("locationが取得できませんでした")
         }
     }
 }
