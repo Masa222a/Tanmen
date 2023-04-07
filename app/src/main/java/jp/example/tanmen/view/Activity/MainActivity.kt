@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
             locationStart()
             Timber.d("locationが許可されました")
         } else {
+            ShopService.instance.location.postValue(null)
             Timber.d("locationが拒否されました")
         }
     }
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
             val settingsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(settingsIntent)
             Timber.d("not gpsEnable, startActivity")
+            ShopService.instance.location.postValue(null)
         }
 
         if (ContextCompat.checkSelfPermission(this,
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
-        ShopService.instance.location = location
+        ShopService.instance.location.postValue(location)
         Timber.d("緯度${location.latitude}, 経度${location.longitude}")
     }
 

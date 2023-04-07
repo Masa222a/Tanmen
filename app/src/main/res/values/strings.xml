@@ -19,5 +19,5 @@
     <string name="shop_name_label">店名</string>
     <string name="shop_address_label">住所</string>
     <string name="loading">位置情報取得中です...</string>
-    <string name="location_false">位置情報を取得できませんでした。\n再度お試しください。</string>
+    <string name="location_false">位置情報を取得できませんでした。\n位置情報をONにして、再度お試しください。</string>
 </resources>

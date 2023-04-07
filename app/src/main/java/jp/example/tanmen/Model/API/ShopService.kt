@@ -1,6 +1,7 @@
 package jp.example.tanmen.Model.API
 
 import android.location.Location
+import androidx.lifecycle.MutableLiveData
 import jp.example.tanmen.Model.Entity.Shop
 import okhttp3.*
 import org.json.JSONObject
@@ -14,7 +15,7 @@ class ShopService private constructor(){
         var instance: ShopService = ShopService()
     }
 
-    var location: Location? = null
+    val location = MutableLiveData<Location>()
 
     fun fetchUrl(ramenUrl: UrlCreate.Distance?, callback: (MutableList<Shop>) -> Unit) {
         val url = URL(ramenUrl?.let { UrlCreate(it, location).url })
@@ -71,7 +72,7 @@ class ShopService private constructor(){
         })
     }
 
-    class UrlCreate(private val range: Distance, private val location: Location?) {
+    class UrlCreate(private val range: Distance, private val location: MutableLiveData<Location>) {
         enum class Distance {
             fiveHundred,
             oneThousand,
@@ -93,7 +94,7 @@ class ShopService private constructor(){
             get() {
                 Timber.d("$range")
                 return if (location != null) {
-                    "${mainUrl}${apiKey}&lat=${location.latitude}&lng=${location.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
+                    "${mainUrl}${apiKey}&lat=${location.value?.latitude}&lng=${location.value?.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
                 } else {
                     ""
                 }

@@ -23,6 +23,7 @@ class ShuffleFragment : Fragment() {
     private lateinit var binding: FragmentShuffleBinding
     private val viewModel: ShuffleViewModel by viewModels()
     var progressDialog: ProgressDialog? = null
+    private val shopService = ShopService.instance
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,6 @@ class ShuffleFragment : Fragment() {
             show()
         }
 
-        checkedLocation()
         setupObserve()
 
         return binding.root
@@ -51,36 +51,28 @@ class ShuffleFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if (ShopService.instance.location != null) {
-            viewModel.getData()
-        } else {
-            viewModel.getLocation()
-        }
-    }
-
-    private fun checkedLocation() {
-        viewModel.location.observe(viewLifecycleOwner) {
-            if (it == null) {
-                progressDialog?.dismiss()
-                val dialog = AlertDialog.Builder(requireActivity())
-                    dialog.apply {
-                        setMessage(getString(R.string.location_false))
-                        setPositiveButton(getString(R.string.yes)) {_, _ ->
-                            val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
-                            val viewPager = activity?.findViewById(R.id.viewPager) as ViewPager2
-                            viewPager.currentItem = 0
-                            mainFragment.openBottomSheet()
-                        }
-                        show()
-                    }
-            } else {
-                progressDialog?.dismiss()
-                viewModel.getData()
-            }
-        }
+        viewModel.getData()
     }
 
     private fun setupObserve() {
+        shopService.location.observe(viewLifecycleOwner) {
+            if (it == null) {
+                progressDialog?.dismiss()
+                val dialog = AlertDialog.Builder(requireActivity())
+                dialog.apply {
+                    setMessage(getString(R.string.location_false))
+                    setPositiveButton(getString(R.string.yes)) {_, _ ->
+                        val mainFragment = this@ShuffleFragment.parentFragment as MainFragment
+                        val viewPager = activity?.findViewById(R.id.viewPager) as ViewPager2
+                        viewPager.currentItem = 0
+                        mainFragment.openBottomSheet()
+                    }
+                    show()
+                }
+            } else {
+                progressDialog?.dismiss()
+            }
+        }
         viewModel.data.observe(viewLifecycleOwner) {
             if (it == null) {
                 d("オブザーブ内null")
