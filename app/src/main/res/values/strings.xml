@@ -11,6 +11,7 @@
     <string name="address_label">住所</string>
     <string name="hours_label">営業時間</string>
     <string name="yes">はい</string>
+    <string name="no">いいえ</string>
     <string name="no_search_result">該当する店舗が見つかりませんでした。\n検索条件を変更してください。</string>
     <string name="guide_search">右下の検索ボタンから検索してください。</string>
     <string name="searching">検索中です</string>
@@ -20,4 +21,6 @@
     <string name="shop_address_label">住所</string>
     <string name="loading">位置情報取得中です...</string>
     <string name="location_false">位置情報を取得できませんでした。\n位置情報をONにして、再度お試しください。</string>
+    <string name="alert_dialog">アプリを継続するためには位置情報の取得が必要です</string>
+    <string name="alert_message">画面に権限がないので表示できません。</string>
 </resources>
