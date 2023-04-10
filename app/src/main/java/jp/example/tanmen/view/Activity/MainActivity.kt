@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
             locationStart()
             Timber.d("locationが許可されました")
         } else {
-            ShopService.instance.location.postValue(null)
             Timber.d("locationが拒否されました")
         }
     }
@@ -78,7 +77,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
             val settingsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(settingsIntent)
             Timber.d("not gpsEnable, startActivity")
-            ShopService.instance.location.postValue(null)
         }
 
         if (ContextCompat.checkSelfPermission(this,

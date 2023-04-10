@@ -93,7 +93,7 @@ class ShopService private constructor(){
         val url: String
             get() {
                 Timber.d("$range")
-                return if (location != null) {
+                return if (location.value != null) {
                     "${mainUrl}${apiKey}&lat=${location.value?.latitude}&lng=${location.value?.longitude}&range=${parseDistance(range)}&genre=G013&format=json"
                 } else {
                     ""
