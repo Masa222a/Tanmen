@@ -21,6 +21,6 @@
     <string name="shop_address_label">住所</string>
     <string name="loading">位置情報取得中です...</string>
     <string name="location_false">位置情報を取得できませんでした。\n位置情報をONにして、再度お試しください。</string>
-    <string name="alert_dialog">アプリを継続するためには位置情報の取得が必要です</string>
+    <string name="alert_dialog">アプリを継続するためには位置情報の取得が必要です。設定後、再起動を行ってご利用ください。</string>
     <string name="alert_message">画面に権限がないので表示できません。</string>
 </resources>
