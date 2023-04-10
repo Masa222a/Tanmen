@@ -76,6 +76,15 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
 
+            <TextView
+                android:id="@+id/alertMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/alert_message"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
 
 
         </LinearLayout>
