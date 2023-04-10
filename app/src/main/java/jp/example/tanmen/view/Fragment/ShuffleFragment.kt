@@ -33,6 +33,7 @@ class ShuffleFragment : Fragment() {
     private val viewModel: ShuffleViewModel by viewModels()
     var progressDialog: ProgressDialog? = null
     private val shopService = ShopService.instance
+    private var isFirst = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,15 +55,20 @@ class ShuffleFragment : Fragment() {
     
     override fun onResume() {
         super.onResume()
+        locationAuthority()
     }
 
     private fun locationAuthority() {
         if (checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION) &&
             checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            progressDialog?.apply {
-                setTitle(getString(R.string.loading))
-                setProgressStyle(ProgressDialog.STYLE_SPINNER)
-                show()
+            if (shopService.location.value != null && !isFirst) {
+                viewModel.getData()
+            } else {
+                progressDialog?.apply {
+                    setTitle(getString(R.string.loading))
+                    setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                    show()
+                }
             }
         } else {
             val builder = AlertDialog.Builder(requireActivity())
@@ -77,6 +83,7 @@ class ShuffleFragment : Fragment() {
             builder.create()
             builder.show()
         }
+        isFirst = false
     }
 
     private fun checkSinglePermission(permission: String): Boolean =
