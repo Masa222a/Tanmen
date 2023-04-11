@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
@@ -64,11 +65,18 @@ class ShuffleFragment : Fragment() {
             if (shopService.location.value != null && !isFirst) {
                 viewModel.getData()
             } else {
+                val handler = Handler()
+                val run = Runnable {
+                    kotlin.run {
+                        progressDialog?.dismiss()
+                    }
+                }
                 progressDialog?.apply {
                     setTitle(getString(R.string.loading))
                     setProgressStyle(ProgressDialog.STYLE_SPINNER)
                     show()
                 }
+                handler.postDelayed(run, 3000)
             }
         } else {
             val builder = AlertDialog.Builder(requireActivity())
