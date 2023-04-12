@@ -70,10 +70,4 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun emptyTaskListDialog() {
-        AlertDialog.Builder(requireActivity())
-            .setMessage(getString(R.string.no_search_result))
-            .setPositiveButton(getString(R.string.yes)) { _, _ -> }
-            .show()
-    }
 }
