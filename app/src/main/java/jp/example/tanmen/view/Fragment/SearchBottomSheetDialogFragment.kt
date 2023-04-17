@@ -7,16 +7,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import jp.example.tanmen.Model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
+import jp.example.tanmen.viewModel.SearchBottomSheetDialogViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSearchBottomSheetDialogBinding
+    private val viewModel: SearchBottomSheetDialogViewModel by viewModels()
 
     private val _requestKey: String
         get() = requireArguments().getString(KEY_REQUEST, "")
@@ -40,23 +43,15 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         binding.apply {
             searchButton.setOnClickListener {
                 lifecycleScope.launch {
-                    if (ShopService.instance.location != null) {
-                        val btnId = binding.toggleButton.checkedButtonId
-                        if (btnId != -1) {
-                            val distance = getCheckedButton(btnId)
-                            ShopService.instance.fetchUrl(distance) {
-                                Timber.d("$it")
-
-                                val bundle = bundleOf(KEY_CLICK to it)
-                                setFragmentResult(_requestKey, bundle)
-
-                            }
-                        }else {
-                            Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
-                            Timber.d("距離が選択されていません")
+                    val btnId = binding.toggleButton.checkedButtonId
+                    if (btnId != -1) {
+                        val distance = getCheckedButton(btnId)
+                        if (distance != null) {
+                            viewModel.getShopList(distance)
                         }
-                    } else {
-                        Timber.d("locationがnullです")
+                    }else {
+                        Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
+                        Timber.d("距離が選択されていません")
                     }
                 }
             }
@@ -64,6 +59,11 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
             cancelButton.setOnClickListener {
                 dismiss()
             }
+        }
+
+        viewModel.shopListLiveData.observe(viewLifecycleOwner) {
+            val bundle = bundleOf(KEY_CLICK to it)
+            setFragmentResult(_requestKey, bundle)
         }
 
         return binding.root
