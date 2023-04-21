@@ -1,6 +1,8 @@
 package jp.example.tanmen.view.Fragment
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,7 @@ import timber.log.Timber
 class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSearchBottomSheetDialogBinding
     private val viewModel: SearchBottomSheetDialogViewModel by viewModels()
+    var progressDialog: ProgressDialog? = null
 
     private val _requestKey: String
         get() = requireArguments().getString(KEY_REQUEST, "")
@@ -40,20 +43,12 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBottomSheetDialogBinding.inflate(inflater, container, false)
+
+        this.progressDialog = ProgressDialog(activity)
+
         binding.apply {
             searchButton.setOnClickListener {
-                lifecycleScope.launch {
-                    val btnId = binding.toggleButton.checkedButtonId
-                    if (btnId != -1) {
-                        val distance = getCheckedButton(btnId)
-                        if (distance != null) {
-                            viewModel.getShopList(distance)
-                        }
-                    }else {
-                        Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
-                        Timber.d("距離が選択されていません")
-                    }
-                }
+                searchStart()
             }
 
             cancelButton.setOnClickListener {
@@ -67,6 +62,36 @@ class SearchBottomSheetDialogFragment : BottomSheetDialogFragment() {
         }
 
         return binding.root
+    }
+
+    private fun searchStart() {
+        if (ShopService.instance.location.value != null) {
+            lifecycleScope.launch {
+                val btnId = binding.toggleButton.checkedButtonId
+                if (btnId != -1) {
+                    val distance = getCheckedButton(btnId)
+                    if (distance != null) {
+                        viewModel.getShopList(distance)
+                    }
+                }else {
+                    Toast.makeText(activity, getString(R.string.please_select_distance), Toast.LENGTH_SHORT).show()
+                    Timber.d("距離が選択されていません")
+                }
+            }
+        } else {
+            val handler = Handler()
+            val run = Runnable {
+                kotlin.run {
+                    progressDialog?.dismiss()
+                }
+            }
+            progressDialog?.apply {
+                setTitle(getString(R.string.loading_return))
+                setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                show()
+            }
+            handler.postDelayed(run, 1000)
+        }
     }
 
     private fun getCheckedButton(btnId: Int): ShopService.UrlCreate.Distance? {
