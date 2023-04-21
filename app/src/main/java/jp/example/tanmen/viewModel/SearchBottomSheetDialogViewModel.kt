@@ -10,7 +10,11 @@ class SearchBottomSheetDialogViewModel : ViewModel() {
 
     fun getShopList(distance: ShopService.UrlCreate.Distance) {
         ShopService.instance.fetchUrl(distance) {
-            shopListLiveData.postValue(it)
+            if (it.isEmpty()) {
+                shopListLiveData.postValue(null)
+            } else {
+                shopListLiveData.postValue(it)
+            }
         }
     }
 }
