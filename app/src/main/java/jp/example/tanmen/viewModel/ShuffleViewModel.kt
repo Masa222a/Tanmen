@@ -1,12 +1,10 @@
 package jp.example.tanmen.viewModel
 
-import android.location.Location
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import jp.example.tanmen.Model.API.ShopService
-import jp.example.tanmen.Model.Entity.Shop
+import jp.example.tanmen.model.API.ShopService
+import jp.example.tanmen.model.Entity.Shop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber

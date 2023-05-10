@@ -12,7 +12,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import jp.example.tanmen.Model.API.ShopService
+import jp.example.tanmen.model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
 import jp.example.tanmen.viewModel.SearchBottomSheetDialogViewModel

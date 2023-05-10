@@ -2,8 +2,8 @@ package jp.example.tanmen.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import jp.example.tanmen.Model.API.ShopService
-import jp.example.tanmen.Model.Entity.Shop
+import jp.example.tanmen.model.API.ShopService
+import jp.example.tanmen.model.Entity.Shop
 
 class SearchBottomSheetDialogViewModel : ViewModel() {
     var shopListLiveData: MutableLiveData<MutableList<Shop>> = MutableLiveData()

@@ -3,7 +3,6 @@ package jp.example.tanmen.view.Fragment
 import android.Manifest
 import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -12,15 +11,12 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import jp.example.tanmen.Model.API.ShopService
+import jp.example.tanmen.model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.FragmentShuffleBinding
 import jp.example.tanmen.viewModel.ShuffleViewModel

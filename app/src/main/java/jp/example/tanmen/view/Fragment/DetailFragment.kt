@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
-import jp.example.tanmen.Model.Entity.Shop
+import jp.example.tanmen.model.Entity.Shop
 import jp.example.tanmen.databinding.FragmentDetailBinding
 import timber.log.Timber
 

@@ -9,7 +9,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +17,7 @@ import androidx.core.app.AppLaunchChecker
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import jp.example.tanmen.Model.API.ShopService
+import jp.example.tanmen.model.API.ShopService
 import jp.example.tanmen.R
 import jp.example.tanmen.databinding.ActivityMainBinding
 import jp.example.tanmen.view.Fragment.MainFragment

@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import jp.example.tanmen.Model.Entity.Shop
+import jp.example.tanmen.model.Entity.Shop
 import jp.example.tanmen.R
-import jp.example.tanmen.Adapter.BottomNavigationPagerAdapter
+import jp.example.tanmen.adapter.BottomNavigationPagerAdapter
 import jp.example.tanmen.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {

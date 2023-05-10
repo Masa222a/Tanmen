@@ -1,4 +1,4 @@
-package jp.example.tanmen.Model.Entity
+package jp.example.tanmen.model.Entity
 
 import java.io.Serializable
 
