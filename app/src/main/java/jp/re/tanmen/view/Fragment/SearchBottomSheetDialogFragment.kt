@@ -1,4 +1,4 @@
-package jp.example.tanmen.view.Fragment
+package jp.re.tanmen.view.Fragment
 
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -12,10 +12,10 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import jp.example.tanmen.model.API.ShopService
-import jp.example.tanmen.R
-import jp.example.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
-import jp.example.tanmen.viewModel.SearchBottomSheetDialogViewModel
+import jp.re.tanmen.R
+import jp.re.tanmen.databinding.FragmentSearchBottomSheetDialogBinding
+import jp.re.tanmen.model.API.ShopService
+import jp.re.tanmen.viewModel.SearchBottomSheetDialogViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package jp.example.tanmen.view.Fragment
+package jp.re.tanmen.view.Fragment
 
 import android.Manifest
 import android.app.AlertDialog
@@ -16,10 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.squareup.picasso.Picasso
-import jp.example.tanmen.model.API.ShopService
-import jp.example.tanmen.R
-import jp.example.tanmen.databinding.FragmentShuffleBinding
-import jp.example.tanmen.viewModel.ShuffleViewModel
+import jp.re.tanmen.R
+import jp.re.tanmen.databinding.FragmentShuffleBinding
+import jp.re.tanmen.model.API.ShopService
+import jp.re.tanmen.viewModel.ShuffleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

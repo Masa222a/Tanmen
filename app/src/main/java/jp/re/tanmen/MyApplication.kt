@@ -1,4 +1,4 @@
-package jp.example.tanmen
+package jp.re.tanmen
 
 import android.app.Application
 import timber.log.Timber.DebugTree

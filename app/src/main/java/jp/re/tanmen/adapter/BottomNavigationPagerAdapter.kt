@@ -1,10 +1,10 @@
-package jp.example.tanmen.adapter
+package jp.re.tanmen.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import jp.example.tanmen.view.Fragment.HomeFragment
-import jp.example.tanmen.view.Fragment.MainFragment
-import jp.example.tanmen.view.Fragment.ShuffleFragment
+import jp.re.tanmen.view.Fragment.HomeFragment
+import jp.re.tanmen.view.Fragment.MainFragment
+import jp.re.tanmen.view.Fragment.ShuffleFragment
 
 class BottomNavigationPagerAdapter(fm: MainFragment) : FragmentStateAdapter(fm) {
     override fun getItemCount(): Int {

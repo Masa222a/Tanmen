@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment"
-        android:name="jp.example.tanmen.view.Fragment.MainFragment"
+        android:name="jp.re.tanmen.view.Fragment.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,8 +1,8 @@
-package jp.example.tanmen.model.API
+package jp.re.tanmen.model.API
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData
-import jp.example.tanmen.model.Entity.Shop
+import jp.re.tanmen.model.Entity.Shop
 import okhttp3.*
 import org.json.JSONObject
 import timber.log.Timber

@@ -1,4 +1,4 @@
-package jp.example.tanmen.view.Fragment
+package jp.re.tanmen.view.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import jp.example.tanmen.model.Entity.Shop
-import jp.example.tanmen.R
-import jp.example.tanmen.adapter.BottomNavigationPagerAdapter
-import jp.example.tanmen.databinding.FragmentMainBinding
+import jp.re.tanmen.R
+import jp.re.tanmen.adapter.BottomNavigationPagerAdapter
+import jp.re.tanmen.databinding.FragmentMainBinding
+import jp.re.tanmen.model.Entity.Shop
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding

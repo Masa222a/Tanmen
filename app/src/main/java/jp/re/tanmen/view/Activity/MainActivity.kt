@@ -1,4 +1,4 @@
-package jp.example.tanmen.view.Activity
+package jp.re.tanmen.view.Activity
 
 import android.Manifest
 import android.content.Context
@@ -17,10 +17,10 @@ import androidx.core.app.AppLaunchChecker
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import jp.example.tanmen.model.API.ShopService
-import jp.example.tanmen.R
-import jp.example.tanmen.databinding.ActivityMainBinding
-import jp.example.tanmen.view.Fragment.MainFragment
+import jp.re.tanmen.model.API.ShopService
+import jp.re.tanmen.R
+import jp.re.tanmen.databinding.ActivityMainBinding
+import jp.re.tanmen.view.Fragment.MainFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LocationListener {

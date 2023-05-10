@@ -6,7 +6,7 @@
     <data>
         <variable
             name="shuffleViewModel"
-            type="jp.example.tanmen.viewModel.ShuffleViewModel" />
+            type="jp.re.tanmen.viewModel.ShuffleViewModel" />
     </data>
 
     <ScrollView

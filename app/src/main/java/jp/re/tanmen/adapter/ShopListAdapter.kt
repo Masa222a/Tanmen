@@ -1,4 +1,4 @@
-package jp.example.tanmen.adapter
+package jp.re.tanmen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import jp.example.tanmen.model.Entity.Shop
-import jp.example.tanmen.R
+import jp.re.tanmen.model.Entity.Shop
+import jp.re.tanmen.R
 import com.squareup.picasso.Picasso
 
 class ShopListAdapter(var shopList: MutableList<Shop>)

@@ -1,4 +1,4 @@
-package jp.example.tanmen.view.Fragment
+package jp.re.tanmen.view.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import jp.example.tanmen.adapter.ShopListAdapter
-import jp.example.tanmen.model.Entity.Shop
-import jp.example.tanmen.R
-import jp.example.tanmen.databinding.FragmentHomeBinding
+import jp.re.tanmen.R
+import jp.re.tanmen.adapter.ShopListAdapter
+import jp.re.tanmen.databinding.FragmentHomeBinding
+import jp.re.tanmen.model.Entity.Shop
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

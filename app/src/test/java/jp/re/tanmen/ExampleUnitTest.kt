@@ -1,4 +1,4 @@
-package jp.example.tanmen
+package jp.re.tanmen
 
 import org.junit.Test
 
