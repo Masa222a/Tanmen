@@ -1,5 +1,5 @@
 # 探麺 -Tanmen-  
-https://play.google.com/store/apps/details?id=jp.example.tanmen
+[https://play.google.com/store/apps/details?id=jp.example.tanmen](https://play.google.com/store/apps/details?id=jp.re.tanmen&hl=ja)
 
 ## アプリの特徴  
 ラーメン店を探すアプリ  
